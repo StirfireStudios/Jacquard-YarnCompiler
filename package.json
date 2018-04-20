@@ -1,0 +1,17 @@
+{
+  "name": "jacquard-yarncompiler",
+  "version": "0.1.0",
+  "description": "a JS bytecode compiler for Yarn",
+  "main": "src/index.js",
+  "repository": "https://github.com/StirfireStudios/Jacquard-YarnCompiler",
+  "author": "Stirfire Studios",
+  "license": "MIT",
+  "devDependencies": {
+    "commander": "^2.15.1"
+  },
+  "dependencies": {
+    "jacquard-yarnparser": "^0.1.0"
+  },
+  "scripts": {
+  }
+}
