@@ -1,0 +1,7 @@
+toc: 
+  - name: 'Basic usage'
+  - Compiler
+  - CompilerConfig
+  - name: 'Commands'
+  - ByName
+  - ByOpcode

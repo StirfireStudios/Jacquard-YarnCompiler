@@ -14,7 +14,7 @@
   },
   "scripts": {
     "compile": "node cli.js",
-    "serveDoc": "documentation serve --watch src/** -f html",
-    "buildDoc": "documentation build src/** -f html -o docs"
+    "serveDoc": "documentation serve --config documentation.yml --watch src/** -f html",
+    "buildDoc": "documentation build --config documentation.yml src/** -f html -o docs"
   }
 }

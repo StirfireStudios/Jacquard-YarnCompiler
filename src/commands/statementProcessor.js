@@ -1,5 +1,6 @@
 'use strict';
 
+const Commands = require('./index');
 const Statement = require('jacquard-yarnparser').Statement;
 
 function processor(commandList, sourceMaps, statement) {
