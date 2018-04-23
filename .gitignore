@@ -4,8 +4,7 @@
 ## See https://help.github.com/ignore-files/ for more about ignoring files
 
 ## Yarn files for testing the bytecode files
-yarn_test_files/
-bytecode_output/
+compiled_bytecode/
 
 # Created by https://www.gitignore.io/api/node,macos,windows
 
