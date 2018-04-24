@@ -8,6 +8,8 @@ Install `jacquard-yarncompiler` via your favourite javascript package tool.
 
 ## Bytecode file format
 
+Current version is `0.1.0`
+
 ### Types
 
 All groupings are Little Endian. All Strings are UTF-8.
@@ -21,31 +23,49 @@ All groupings are Little Endian. All Strings are UTF-8.
 
 #### Variable Length
 ##### VarInt
-  1. Type (Byte) - length + signed or unsigned - top bit is if it's signed, the other 7 are the NumBytes of the number (current max length is 8 bytes)
+  1. Type (`Byte`) - length + signed or unsigned - top bit is if it's signed, the other 7 are the NumBytes of the number (current max length is 8 bytes)
   2. then NumBytes of 
-     1. NumberPart (Bytes) - Part of the number
+     1. NumberPart (`Byte`) - Part of the number
 
 ##### VarString
-  1. NumBytes (VarInt) - indicating how long the string is in bytes.
+  1. NumBytes (`VarInt`) - indicating how long the string is in bytes.
   2. then NumBytes of
      1. StringPart (Bytes) - Part of the actual string.
 
 ##### StringTable
-  1. NumEntries (VarInt) - how many entries does this table have.
+  1. NumEntries (`VarInt`) - how many entries does this table have.
   2. and then NumEntries of
-     1. Entry (VarString) - the string at this entry.
+     1. Entry (`VarString`) - the string at this entry.
 
 ##### EntryPointTable
-  1. NumEntries (VarInt) - how many entries does this table have.
+  1. NumEntries (`VarInt`) - how many entries does this table have.
   2. and then NumEntries of
-     1. Entry (VarString) - the string at this entry.
-     2. Offset (VarInt) - the byte offset for this entry in the instruction set.
+     1. Entry (`VarString`) - the string at this entry.
+     2. Offset (`VarInt`) - the byte offset for this entry in the instruction set.
 
-### Opcodes
+### Layout
+
+  - ASCII "JQRD" - denoting file type (should take 4 bytes)
+  - Version (`VarString`) - the bytecode version.
+  - Function Table Index (`VarInt`) - Offset (in entire file) of where the function table starts
+  - Variable Table Index (`VarInt`) - Offset (in entire file) of where the variable table starts
+  - String Table Index (`VarInt`) - Offset (in entire file) of where the string table starts
+  - Node Table Index (`VarInt`) - Offset (in entire file) of where the Node table starts
+  - Function Table (`StringTable`) - The Function table
+  - Variable Table (`StringTable`) - The Variable table
+  - String Table (`StringTable`) - The String table
+  - Node Table (`EntryPointTable`) - The Node Table (with entry points)
+  - Instruction Block - Defined below
+
+### Instruction Block
+
+This is a large bucket of bytes that is back-to-back opcodes and opcode arguments and defines the actual program flow. Use the Node Table (and a node name) to get your entry point (or alternatley, start at the first instruction). Consume the opcode you are at and proceed accordingly.
+
+#### Opcodes
 
 Documented [here](https://github.com/StirfireStudios/Jacquard-YarnCompiler/blob/master/src/commands/index.js#L9)
 
-Opcodes are variable length - the opcode itself is always one byte, but the arguments may be more.
+Opcodes are variable length - the opcode itself is always one byte, but the arguments may be more. Types are listed above
 
 ## Building/Developing
 
