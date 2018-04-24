@@ -13,28 +13,33 @@ Install `jacquard-yarncompiler` via your favourite javascript package tool.
 All groupings are Little Endian. All Strings are UTF-8.
 
 #### Fixed Length
- - Float
-   - 4 bytes - the IEEE 754 float value
- - Byte
-   - a single byte - usually either a bit-field or a unsigned integer.
+##### Float
+  1. 4 bytes - the IEEE 754 float value
+
+##### Byte
+  1. a single byte - usually either a bit-field or a unsigned integer.
+
 #### Variable Length
- - VarInt
-   - Type (Byte) - length + signed or unsigned - top bit is if it's signed, the other 7 are the NumBytes of the number (current max length is 8 bytes)
-   - then NumBytes of 
-     - NumberPart (Bytes) - Part of the number
- - VarString
-   - NumBytes (VarInt) - indicating how long the string is in bytes.
-   - then NumBytes of
-     - StringPart (Bytes) - Part of the actual string.
- - StringTable
-   - NumEntries (VarInt) - how many entries does this table have.
-   - and then NumEntries of
-     - Entry (VarString) - the string at this entry.
-  - EntryPointTable
-   - NumEntries (VarInt) - how many entries does this table have.
-   - and then NumEntries of
-     - Entry (VarString) - the string at this entry.
-     - Offset (VarInt) - the byte offset for this entry in the instruction set.
+##### VarInt
+  1. Type (Byte) - length + signed or unsigned - top bit is if it's signed, the other 7 are the NumBytes of the number (current max length is 8 bytes)
+  2. then NumBytes of 
+    1. NumberPart (Bytes) - Part of the number
+
+##### VarString
+  1. NumBytes (VarInt) - indicating how long the string is in bytes.
+  2. then NumBytes of
+    1. StringPart (Bytes) - Part of the actual string.
+
+##### StringTable
+  1. NumEntries (VarInt) - how many entries does this table have.
+  2. and then NumEntries of
+    1. Entry (VarString) - the string at this entry.
+
+##### EntryPointTable
+  1. NumEntries (VarInt) - how many entries does this table have.
+  2. and then NumEntries of
+    1. Entry (VarString) - the string at this entry.
+    2. Offset (VarInt) - the byte offset for this entry in the instruction set.
 
 ### Opcodes
 
