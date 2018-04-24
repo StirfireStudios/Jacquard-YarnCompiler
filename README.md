@@ -6,7 +6,7 @@ This compiles Yarn syntax (with help of the [yarn parser](https://github.com/Sti
 
 Install `jacquard-yarncompiler` via your favourite javascript package tool.
 
-## Bytecode file format
+## Bytecode file formats
 
 Current version is `0.1.0`
 
@@ -19,33 +19,47 @@ All groupings are Little Endian. All Strings are UTF-8.
   1. 4 bytes - the IEEE 754 float value
 
 ##### Byte
-  1. a single byte - usually either a bit-field or a unsigned integer.
+  1. 1 byte - usually either a bit-field or a unsigned integer.
+
+##### StackOffset
+  1. 1 byte - the offset (0 being the top of the stack and 255 being the 255th oldest item on the stack) of a stack argument
 
 #### Variable Length
 ##### VarInt
-  1. Type (`Byte`) - length + signed or unsigned - top bit is if it's signed, the other 7 are the NumBytes of the number (current max length is 8 bytes)
+  1. Type (`Byte`) - length + signed or unsigned - high bit is on if it's signed, the lower 7 are the NumBytes of the number (current max length is 8 bytes)
   2. then NumBytes of 
      1. NumberPart (`Byte`) - Part of the number
 
-##### VarString
-  1. NumBytes (`VarInt`) - indicating how long the string is in bytes.
+##### VarBytes
+  1. NumBytes (`VarInt`) - indicating how many bytes are in this value.
   2. then NumBytes of
-     1. StringPart (Bytes) - Part of the actual string.
+     1. Part (Bytes) - part of this value.
+
+##### VarString
+A Varbytes where the Bytes value represents an UTF-8 encoded string value.
 
 ##### StringTable
   1. NumEntries (`VarInt`) - how many entries does this table have.
   2. and then NumEntries of
      1. Entry (`VarString`) - the string at this entry.
 
-##### EntryPointTable
+##### BytesEntryPointTable
+  1. NumEntries (`VarInt`) - how many entries does this table have.
+  2. and then NumEntries of
+     1. Entry (`VarBytes`) - the byte name of this entry.
+     2. Offset (`VarInt`) - the byte offset for this entry in the instruction set.
+
+##### StringEntryPointTable
   1. NumEntries (`VarInt`) - how many entries does this table have.
   2. and then NumEntries of
      1. Entry (`VarString`) - the string at this entry.
      2. Offset (`VarInt`) - the byte offset for this entry in the instruction set.
 
-### Layout
+### Logic File Layout
 
-  - ASCII "JQRD" - denoting file type (should take 4 bytes)
+The logic file contains the general graph flow and expressions. Text that is to be displayed on screen is not in this file as that needs localization.
+
+  - ASCII "JQRDL" - denoting file type (should take 4 bytes)
   - Version (`VarString`) - the bytecode version.
   - Function Table Index (`VarInt`) - Offset (in entire file) of where the function table starts
   - Variable Table Index (`VarInt`) - Offset (in entire file) of where the variable table starts
@@ -54,14 +68,28 @@ All groupings are Little Endian. All Strings are UTF-8.
   - Function Table (`StringTable`) - The Function table
   - Variable Table (`StringTable`) - The Variable table
   - String Table (`StringTable`) - The String table
-  - Node Table (`EntryPointTable`) - The Node Table (with entry points)
-  - Instruction Block - Defined below
+  - Node Table (`StringEntryPointTable`) - The Node Table (with entry points)
+  - Logic Instruction Block - Defined below
 
-### Instruction Block
+#### Logic Instruction Block
 
 This is a large bucket of bytes that is back-to-back opcodes and opcode arguments and defines the actual program flow. Use the Node Table (and a node name) to get your entry point (or alternatley, start at the first instruction). Consume the opcode you are at and proceed accordingly.
 
-#### Opcodes
+### Dialog File Layout
+
+There is one (or more) of these files - each one representing one language. This file should no branching logic or expressions that aren't involved in text display on screen / for subtitling or VO purposes.
+
+  - ASCII "JQRDD" - denoting file type (should take 5 bytes)
+  - Version (`VarString`) - the bytecode version
+  - Language (`VarString`) - The identifier for this language (be sure to be consistent in your project)
+  - Dialog Block Table (`BytesEntryPontTable`) - The table of dialog blocks for this language.
+  - Dialog Instruction Block - Defined below
+
+#### Dialog Instruction Block
+
+This is a large bucket of bytes that is back-to-back opcodes and opcode arguments and defines text display for a given languagae. Use the Dialog Block table to get your entry point and run until you encounter the `DialogBlockEnd` opcode. 
+
+### Opcodes
 
 Documented [here](https://github.com/StirfireStudios/Jacquard-YarnCompiler/blob/master/src/commands/index.js#L9)
 
