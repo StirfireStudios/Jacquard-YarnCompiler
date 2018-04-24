@@ -31,6 +31,7 @@ const byName = {
 	/** Display the given dialog block
    * This is a valid Logic File instruction. 
  	 * 0 - (varBytes) - the dialog block reference in the Dialog File
+	 * 1 - (varInt) - the character reference in the Dialog File (or -1 if no character)
 	 * @memberof ByName
 	 */
 	ShowDialogBlock: "201",

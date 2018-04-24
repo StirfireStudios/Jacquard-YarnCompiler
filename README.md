@@ -26,7 +26,7 @@ All groupings are Little Endian. All Strings are UTF-8.
 
 #### Variable Length
 ##### VarInt
-  1. Type (`Byte`) - length + signed or unsigned - high bit is on if it's signed, the lower 7 are the NumBytes of the number (current max length is 8 bytes)
+  1. Type (`Byte`) - length + signed or unsigned - high bit is on if it's signed, the lower 7 are the NumBytes of the number (current max length is 8 bytes). If this is 0 then there's no bytes and the value is 0.
   2. then NumBytes of 
      1. NumberPart (`Byte`) - Part of the number
 
@@ -61,13 +61,16 @@ The logic file contains the general graph flow and expressions. Text that is to 
 
   - ASCII "JQRDL" - denoting file type (should take 4 bytes)
   - Version (`VarString`) - the bytecode version.
-  - Function Table Index (`VarInt`) - Offset (in entire file) of where the function table starts
-  - Variable Table Index (`VarInt`) - Offset (in entire file) of where the variable table starts
-  - String Table Index (`VarInt`) - Offset (in entire file) of where the string table starts
+  - Function Table Index (`VarInt`) - Offset (in entire file) of where the function table starts (or 0 if it doesn't exist)
+  - Character Table Index (`VarInt`) - Offset (in entire file) of where the character table starts (or 0 if it doesn't exist)
+  - Variable Table Index (`VarInt`) - Offset (in entire file) of where the variable table starts (or 0 if it doesn't exist)
+  - String Table Index (`VarInt`) - Offset (in entire file) of where the string table starts (or 0 if it doesn't exist)
   - Node Table Index (`VarInt`) - Offset (in entire file) of where the Node table starts
-  - Function Table (`StringTable`) - The Function table
-  - Variable Table (`StringTable`) - The Variable table
-  - String Table (`StringTable`) - The String table
+  - Logic Instruction Block Index (`VarInt`) - Offset (in entire file) of where the Instruction table starts
+  - Function Table (`StringTable`) - The Function table (if exists)
+  - Character Table (`StringTable`) - The Character table (if exists)
+  - Variable Table (`StringTable`) - The Variable table (if exists)
+  - String Table (`StringTable`) - The String table (if exists)
   - Node Table (`StringEntryPointTable`) - The Node Table (with entry points)
   - Logic Instruction Block - Defined below
 
@@ -82,6 +85,9 @@ There is one (or more) of these files - each one representing one language. This
   - ASCII "JQRDD" - denoting file type (should take 5 bytes)
   - Version (`VarString`) - the bytecode version
   - Language (`VarString`) - The identifier for this language (be sure to be consistent in your project)
+  - Character Table Index (`VarInt`) - Offset (in entire file) of where the character table starts (or 0 if it doesn't exist)
+  - Dialog Instruction Block Index (`VarInt`) - Offset (in entire file) of where the Dialog Block table starts
+  - Character Table (`StringTable`) - The Character table (if exists) - these characters are localized for this language and are in the same order as the logic file
   - Dialog Block Table (`BytesEntryPontTable`) - The table of dialog blocks for this language.
   - Dialog Instruction Block - Defined below
 
