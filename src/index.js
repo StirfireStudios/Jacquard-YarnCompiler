@@ -1,7 +1,7 @@
 'use strict';
 
-const CompiledNode = require('./compiledNode');
-const Commands = require('./commands');
+import CompiledNode from './compiledNode';
+import Commands from './commands';
 
 const privateProps = new WeakMap();
 
@@ -59,7 +59,7 @@ function checkNodeDefinition(name) {
 /** Instance of this class are used to compile a yarn AST output by the YarnParser
  * @param {CompilerConfig} config the configuration for this compiler
  */
-class Compiler {
+export class Compiler {
 	constructor(config) {
 		const privates = {
 			config: Object.assign({}, defaultConfig),
@@ -96,8 +96,5 @@ class Compiler {
 	}
 }
 
-module.exports = {
-	Compiler,
-	CompiledNode,
-	Commands,
-}
+export {default as Commands} from './commands';
+export {default as CompiledNode} from './compiledNode';

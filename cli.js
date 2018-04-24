@@ -7,6 +7,8 @@ const package = require('./package.json')
 const program = require('commander');
 
 const YarnParser = require('jacquard-yarnparser').Parser;
+
+require("babel-register");
 const YarnCompiler = require('./src/index').Compiler;
 
 program

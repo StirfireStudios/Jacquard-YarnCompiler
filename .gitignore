@@ -6,6 +6,9 @@
 ## Yarn files for testing the bytecode files
 compiled_bytecode/
 
+## babel compiled stuff
+/dist/
+
 # Created by https://www.gitignore.io/api/node,macos,windows
 
 ### macOS ###
