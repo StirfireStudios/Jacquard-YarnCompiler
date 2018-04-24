@@ -23,23 +23,23 @@ All groupings are Little Endian. All Strings are UTF-8.
 ##### VarInt
   1. Type (Byte) - length + signed or unsigned - top bit is if it's signed, the other 7 are the NumBytes of the number (current max length is 8 bytes)
   2. then NumBytes of 
-    1. NumberPart (Bytes) - Part of the number
+     1. NumberPart (Bytes) - Part of the number
 
 ##### VarString
   1. NumBytes (VarInt) - indicating how long the string is in bytes.
   2. then NumBytes of
-    1. StringPart (Bytes) - Part of the actual string.
+     1. StringPart (Bytes) - Part of the actual string.
 
 ##### StringTable
   1. NumEntries (VarInt) - how many entries does this table have.
   2. and then NumEntries of
-    1. Entry (VarString) - the string at this entry.
+     1. Entry (VarString) - the string at this entry.
 
 ##### EntryPointTable
   1. NumEntries (VarInt) - how many entries does this table have.
   2. and then NumEntries of
-    1. Entry (VarString) - the string at this entry.
-    2. Offset (VarInt) - the byte offset for this entry in the instruction set.
+     1. Entry (VarString) - the string at this entry.
+     2. Offset (VarInt) - the byte offset for this entry in the instruction set.
 
 ### Opcodes
 
