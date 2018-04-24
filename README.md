@@ -6,6 +6,10 @@ This compiles Yarn syntax (with help of the [yarn parser](https://github.com/Sti
 
 Install `jacquard-yarncompiler` via your favourite javascript package tool.
 
+## Opcode/Command List & Info
+
+Take a look [here](https://github.com/StirfireStudios/Jacquard-YarnCompiler/blob/master/src/commands/index.js#L9)
+
 ## Building/Developing
 
 ### Dependencies
