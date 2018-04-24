@@ -5,6 +5,7 @@
  * @readonly
  * @enum {string}
  */
+
 const byName = {
 	/** Do nothing.
 	 * No parameters
