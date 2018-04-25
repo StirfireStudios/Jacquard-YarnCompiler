@@ -1,5 +1,6 @@
 'use strict';
 
+import StatementProcessor from './statementProcessor';
 import CompiledNode from './compiledNode';
 import Commands from './commands';
 
@@ -83,7 +84,14 @@ export class Compiler {
 		yarnParser.nodeNames.forEach((name) => {
 			checkNodeDefinition.call(this, name);
 			const yarnNode = yarnParser.nodeNamed(name);
-			privates.compiledNodes[name] = CompiledNode.FromYarnParserNode(yarnNode);
+			const processor = new StatementProcessor();
+			processor.process(yarnNode.statements);
+			privates.compiledNodes[name] = new CompiledNode({
+				name: name,
+				commands: processor.commands,
+				sourceMap: processor.sourceMap,
+			});
+
 		});
 
 		return privates.errors.length != errorCount;

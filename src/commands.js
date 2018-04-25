@@ -5,8 +5,7 @@
  * @readonly
  * @enum {string}
  */
-
-const byName = {
+export const byName = {
 	/** Do nothing.
 	 * This is a valid Logic File instruction.
 	 * This is a valid Dialog File instruction.
@@ -275,7 +274,7 @@ Object.keys(byName).forEach((name) => {
 	byOpcode[byName[name]] = name;
 });
 
-const ByName = Object.freeze(byName);
+export const ByName = Object.freeze(byName);
 
 /** Command types by name (constant is the opcode in octal)
  * @name ByOpcode
@@ -283,9 +282,6 @@ const ByName = Object.freeze(byName);
  * @readonly
  * @enum {string}
  */
-const ByOpcode = Object.freeze(byOpcode);
+export const ByOpcode = Object.freeze(byName);
 
-module.exports = Object.freeze({
-	ByOpcode,
-	ByName,
-});
+export const Names = Object.freeze(Object.keys(byName));

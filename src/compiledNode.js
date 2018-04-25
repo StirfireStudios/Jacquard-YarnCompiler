@@ -1,7 +1,5 @@
 'use strict';
 
-const statementProcessor = require('./commands/statementProcessor');
-
 const privateProps = new WeakMap();
 
 const defaultNode = {
@@ -44,4 +42,4 @@ class CompiledNode {
 	}
 }
 
-module.exports = CompiledNode;
+export default CompiledNode;
