@@ -1,20 +1,18 @@
 'use strict';
 
-import * as Commands from '../commands';
 import { Statement } from 'jacquard-yarnparser';
+
+import * as Commands from '../commands';
+import { SetupPrivates } from '../classUtils';
+
 import textHandler from './text';
 
 const privateProps = new WeakMap();
 
 const defaults = {
-	commands: [],
 	currentDialogCommands: [],
-	dialogParts: {},
-	sourceMap: [],
-}
-
-function getDefaults() {
-	return Object.assign({}, defaults);
+	logicStatements: [],
+	dialogSegments: {},
 }
 
 function processStatement(statement) {
@@ -43,17 +41,18 @@ function processStatement(statement) {
 	}
 }
 
-export default class StatementProcessor {
+export default class CompilerPass1 {
 	constructor() {
-		const privates = Object.assign(getDefaults(), attrs);
+		const privates = SetupPrivates(defaults, {});
+
 		privateProps.set(this, privates);
 	}
 
-	get commands() { return privateProps.get(this).commands; }
+	get logicStatements() { return privateProps.get(this).commands; }
 
-	get dialogPartNames() { return Object.keys(privateProps.get(this).dialogParts); }
+	get dialogSegmentIDs() { return Object.keys(privateProps.get(this).dialogSegments); }
 
-	dialogPart(name) { return privateProps.get(this).dialogParts[name]; }
+	dialogSegment(name) { return privateProps.get(this).dialogSegments[name]; }
 
 	process(statements) {
 		while(statements.length > 0) {

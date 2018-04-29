@@ -5,3 +5,6 @@ toc:
   - name: 'Commands'
   - ByName
   - ByOpcode
+  - name: 'Internal API documentation'
+  - SetupPrivates
+
