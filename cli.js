@@ -8,8 +8,9 @@ const program = require('commander');
 
 const YarnParser = require('jacquard-yarnparser').Parser;
 
-require("babel-register");
-const YarnCompiler = require('./src/index').Compiler;
+//require("babel-register");
+//const YarnCompiler = require('./src/index').Compiler;
+const YarnCompiler = require('./dist/index').Compiler;
 
 program
   .version(package.version)

@@ -9,6 +9,8 @@
 			"request": "launch",
 			"name": "Compile All Test Yarn",
 			"program": "${workspaceFolder}/cli.js",
+			"sourceMaps": true,
+			"outFiles": ["${workspaceRoot}/dist/*"],
 			"args": [
 				"yarn_files"
 			]
