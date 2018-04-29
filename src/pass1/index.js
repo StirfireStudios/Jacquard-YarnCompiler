@@ -2,21 +2,21 @@
 
 import { Statement } from 'jacquard-yarnparser';
 
+import * as DialogSegments from './dialogSegments';
+
 import * as Commands from '../commands';
 import { SetupPrivates } from '../classUtils';
 
-import textHandler from './text';
+import * as Handlers from './statementHandlers';
 
 const privateProps = new WeakMap();
 
 const defaults = {
-	currentDialogCommands: [],
-	logicStatements: [],
-	dialogSegments: {},
 }
 
 function processStatement(statement) {
 	if (statement instanceof Statement.Blank) {
+		DialogSegments.FinishCurrent(this);
 		return;
 	} else if (statement instanceof Statement.Command) {
 		console.log("Command");
@@ -29,13 +29,16 @@ function processStatement(statement) {
 	} else if (statement instanceof Statement.LineGroup) {
 		console.log("LineGroup");
 	} else if (statement instanceof Statement.Link) {
-		console.log("Link");
+		DialogSegments.FinishCurrent(this);
+		Handlers.Link.call(this, statement);
 	} else if (statement instanceof Statement.OptionGroup) {
+		DialogSegments.FinishCurrent(this);
 		console.log("Option Group");
 	} else if (statement instanceof Statement.ShortcutGroup) {
+		DialogSegments.FinishCurrent(this);
 		console.log("Shortcut Group");
 	} else if (statement instanceof Statement.Text) {
-		textHandler.call(this, statement);
+		Handlers.Text.call(this, statement);
 	} else {
 		console.error("Unknown")
 	}
@@ -44,20 +47,28 @@ function processStatement(statement) {
 export default class CompilerPass1 {
 	constructor() {
 		const privates = SetupPrivates(defaults, {});
+		privates.state = {
+			currentDialog: null,
+			logicCommands: [],
+			dialogSegments: {},
+		};
 
 		privateProps.set(this, privates);
 	}
 
-	get logicStatements() { return privateProps.get(this).commands; }
+	get logicStatements() { return privateProps.get(this).state.logicCommands; }
 
-	get dialogSegmentIDs() { return Object.keys(privateProps.get(this).dialogSegments); }
+	get dialogSegments() { return Object.keys(privateProps.get(this).state.dialogSegments.byName); }
 
-	dialogSegment(name) { return privateProps.get(this).dialogSegments[name]; }
+	dialogSegment(name) { return privateProps.get(this).state.dialogSegments[name]; }
 
 	process(statements) {
+		const state = privateProps.get(this).state;
+		DialogSegments.Setup(state);
 		while(statements.length > 0) {
-			const statement = statements.unshift();
-			processStatement.call(this, statement, statements);
+			const statement = statements.shift();
+			processStatement.call(state, statement, statements);
 		}
+		console.log("Woo");
 	}
 }

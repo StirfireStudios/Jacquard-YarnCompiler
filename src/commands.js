@@ -268,8 +268,10 @@ export const byName = {
 };
 
 const byOpcode = {};
+const names = {};
 
 Object.keys(byName).forEach((name) => {
+	names[name] = name;
 	byName[name] = parseInt(byName[name], 8);
 	byOpcode[byName[name]] = name;
 });
@@ -284,4 +286,4 @@ export const ByName = Object.freeze(byName);
  */
 export const ByOpcode = Object.freeze(byName);
 
-export const Names = Object.freeze(Object.keys(byName));
+export const Names = Object.freeze(names);
