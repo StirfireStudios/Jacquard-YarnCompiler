@@ -14,34 +14,50 @@ const privateProps = new WeakMap();
 const defaults = {
 }
 
+function handleFinishingDialogSegment(statement) {
+	const textStatement = statement instanceof Statement.Text;
+	const lineGroupStatement = statement instanceof Statement.LineGroup;
+
+	if (!(textStatement || lineGroupStatement)) {
+		DialogSegments.FinishCurrent(this);
+	}	
+}
+
 function processStatement(statement) {
-	if (statement instanceof Statement.Blank) {
-		DialogSegments.FinishCurrent(this);
-		return;
-	} else if (statement instanceof Statement.Command) {
-		DialogSegments.FinishCurrent(this);
-		Handlers.Command.call(this, statement);
-	} else if (statement instanceof Statement.Conditional) {
-		console.log("Conditional");
-	} else if (statement instanceof Statement.Evaluate) {
-		console.log("Evaluate");
-	} else if (statement instanceof Statement.Function) {
-		console.log("Function");
-	} else if (statement instanceof Statement.LineGroup) {
-		console.log("LineGroup");
-	} else if (statement instanceof Statement.Link) {
-		DialogSegments.FinishCurrent(this);
-		Handlers.Link.call(this, statement);
-	} else if (statement instanceof Statement.OptionGroup) {
-		DialogSegments.FinishCurrent(this);
-		console.log("Option Group");
-	} else if (statement instanceof Statement.ShortcutGroup) {
-		DialogSegments.FinishCurrent(this);
-		console.log("Shortcut Group");
-	} else if (statement instanceof Statement.Text) {
-		Handlers.Text.call(this, statement);
-	} else {
-		console.error("Unknown")
+	handleFinishingDialogSegment.call(this, statement);
+
+	switch(statement.constructor) {
+		case Statement.Command:
+			Handlers.Command.call(this, statement);
+			break;
+	  case Statement.Conditional:
+			console.log("Conditional");
+			break;
+	  case Statement.Evaluate:
+			console.log("Evaluate");
+			break;
+		case Statement.Function:
+			console.log("Function");
+			break;
+		case Statement.LineGroup:
+			console.log("LineGroup");
+			break;
+	  case Statement.Link:
+			Handlers.Link.call(this, statement);
+			break;
+	  case Statement.OptionGroup:
+			console.log("Option Group");
+			break;
+	  case Statement.ShortcutGroup:
+			console.log("Shortcut Group");
+			break;
+		case Statement.Text:
+			Handlers.Text.call(this, statement);
+			break;
+		case Statement.Blank:
+			break;
+		default:
+			console.error("Unknown")
 	}
 }
 
