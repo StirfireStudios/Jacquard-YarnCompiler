@@ -13,7 +13,7 @@
     "commander": "^2.15.1"
   },
   "dependencies": {
-    "jacquard-yarnparser": "^0.1.0"
+    "jacquard-yarnparser": "^0.3.0"
   },
   "scripts": {
     "build": "babel src -d dist",
