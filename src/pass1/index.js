@@ -19,7 +19,8 @@ function processStatement(statement) {
 		DialogSegments.FinishCurrent(this);
 		return;
 	} else if (statement instanceof Statement.Command) {
-		console.log("Command");
+		DialogSegments.FinishCurrent(this);
+		Handlers.Command.call(this, statement);
 	} else if (statement instanceof Statement.Conditional) {
 		console.log("Conditional");
 	} else if (statement instanceof Statement.Evaluate) {
@@ -56,19 +57,18 @@ export default class CompilerPass1 {
 		privateProps.set(this, privates);
 	}
 
-	get logicStatements() { return privateProps.get(this).state.logicCommands; }
+	get logicCommands() { return privateProps.get(this).state.logicCommands; }
 
-	get dialogSegments() { return Object.keys(privateProps.get(this).state.dialogSegments.byName); }
-
-	dialogSegment(name) { return privateProps.get(this).state.dialogSegments[name]; }
+	get dialogSegments() { return privateProps.get(this).state.dialogSegments; }
 
 	process(statements) {
+		statements = statements.map(item => {return item;});
 		const state = privateProps.get(this).state;
 		DialogSegments.Setup(state);
 		while(statements.length > 0) {
 			const statement = statements.shift();
 			processStatement.call(state, statement, statements);
 		}
-		console.log("Woo");
+		DialogSegments.FinishCurrent(this);
 	}
 }

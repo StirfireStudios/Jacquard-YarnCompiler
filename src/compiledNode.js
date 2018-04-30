@@ -8,7 +8,7 @@ const privateProps = new WeakMap();
 
 const defaultNode = {
 	name: null,
-	logicStatements: [],
+	logicCommands: [],
 	dialogSegments: {},
 }
 
@@ -21,17 +21,17 @@ class CompiledNode {
 
 	get name() { return privateProps.get(this).name; }
 
-	get logicStatements() { return privateProps.get(this).commands; }
+	get logicCommands() { return privateProps.get(this).logicCommands; }
 
 	get dialogSegments() { return privateProps.get(this).dialogSegments; }
 
-	static FromYarnParserNode(node) {		
+	static FromYarnParserNode(node) {
 		const pass1Compile = new Pass1Compiler();
 		pass1Compile.process(node.statements);
 
 		return new CompiledNode({
 			name: node.name,
-			logicStatements: pass1Compile.logicStatements,
+			logicCommands: pass1Compile.logicCommands,
 			dialogSegments: pass1Compile.dialogSegments,
 		});
 	}

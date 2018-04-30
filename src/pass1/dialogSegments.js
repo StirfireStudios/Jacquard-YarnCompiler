@@ -16,38 +16,38 @@ function uniqueDialogName(state) {
 
 export function SetDialogName(state, name) {
   state = state.dialogSegments;
-  state.currentDialog.name = name;
+  state.current.name = name;
 }
 
 export function AddToCurrent(state, statement) {
   state = state.dialogSegments;
 
-	if (state.currentDialog == null) {
-		state.currentDialog = {
+	if (state.current == null) {
+		state.current = {
 			name: uniqueDialogName(state),
 			commands: [],
 		}
   }
   
-  state.currentDialog.commands.push(statement);
+  state.current.commands.push(statement);
 }
 
 export function InDialogBlock(state) {
-  return state.dialogSegments.currentDialog != null;
+  return state.dialogSegments.current != null;
 }
 
 export function FinishCurrent(state) {
   const dlgState = state.dialogSegments;
-  if (dlgState.currentDialog == null) return;
-  dlgState.byName[dlgState.currentDialog.name] = dlgState.currentDialog.commands;
+  if (dlgState.current == null) return;
+  dlgState.byName[dlgState.current.name] = dlgState.current.commands;
 
   state.logicCommands.push({
     type: Commands.Names.ShowDialogBlock,
-    dialogRef: dlgState.currentDialog.name,
+    dialogRef: dlgState.current.name,
     characterRef: -1,
   });
 
-  dlgState.currentDialog = null;
+  dlgState.current = null;
 }
 
 export function Setup(state) {

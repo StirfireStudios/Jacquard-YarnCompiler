@@ -7,5 +7,6 @@ export default function handler(statement) {
 	DialogSegments.AddToCurrent(this, {
 		type: Commands.Names.StaticString,
 		string: statement.text,
+		location: statement.location,
 	});
 }

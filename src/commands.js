@@ -66,7 +66,6 @@ export const byName = {
 	 * @memberof ByName
 	 */
 	JumpIfFalse: "203",
-
 	// Operators
 	/** Load the variable at the index specified onto the stack
    * This is a valid Logic File instruction. 
@@ -255,7 +254,8 @@ export const byName = {
 	 */
 	ClearArguments: "375",
 	/** Clear the top (arg0) values from the option stack, or the entire stack (if arg0 is 255)
-	 * 0 - (bytes) the number of values to clear from the stack. If this is 255, clear the whole stack.
+	 * 0 - (bytes) the index to start clearing from the stack (top is 0)
+	 * 1 - (bytes) the number of values to remove from the stack
 	 * @memberof ByName
 	 */
 	ClearOptionStack: "376",

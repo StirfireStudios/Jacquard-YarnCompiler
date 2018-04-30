@@ -70,7 +70,7 @@ The logic file contains the general graph flow and expressions. Text that is to 
   - Function Table (`StringTable`) - The Function table (if exists)
   - Character Table (`StringTable`) - The Character table (if exists)
   - Variable Table (`StringTable`) - The Variable table (if exists)
-  - String Table (`StringTable`) - The String table (if exists)
+  
   - Node Table (`StringEntryPointTable`) - The Node Table (with entry points)
   - Logic Instruction Block - Defined below
 
@@ -86,8 +86,10 @@ There is one (or more) of these files - each one representing one language. This
   - Version (`VarString`) - the bytecode version
   - Language (`VarString`) - The identifier for this language (be sure to be consistent in your project)
   - Character Table Index (`VarInt`) - Offset (in entire file) of where the character table starts (or 0 if it doesn't exist)
+  - String Table Index (`VarInt`) - Offset (in entire file) of where the string table starts (or 0 if it doesn't exist)
   - Dialog Instruction Block Index (`VarInt`) - Offset (in entire file) of where the Dialog Block table starts
   - Character Table (`StringTable`) - The Character table (if exists) - these characters are localized for this language and are in the same order as the logic file
+  - String Table (`StringTable`) - The String table (if exists)
   - Dialog Block Table (`BytesEntryPontTable`) - The table of dialog blocks for this language.
   - Dialog Instruction Block - Defined below
 
