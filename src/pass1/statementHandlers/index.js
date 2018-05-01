@@ -6,5 +6,6 @@ export {default as LineGroup} from './lineGroup';
 export {default as Link} from './link';
 export {default as Option} from './option';
 export {default as OptionGroup} from './optionGroup';
+export {default as Shortcut} from './shortcut';
 export {default as ShortcutGroup} from './shortcutGroup';
 export {default as Text} from './text';

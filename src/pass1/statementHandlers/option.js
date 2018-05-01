@@ -4,7 +4,10 @@ import * as Commands from '../../commands';
 import * as DialogSegments from '../dialogSegments'
 
 export default function handler(optionStatement) {
-	const optionCommand = {type: Commands.Names.PushOption }
+	const optionCommand = {
+		type: Commands.Names.PushOption,
+		location: optionStatement.location,
+	}
 
 	this.logicCommands.push(optionCommand);
 
@@ -26,6 +29,7 @@ export default function handler(optionStatement) {
 	this.logicCommands.push({
 		type: Commands.Names.Jump,
 		nodeName: optionStatement.destination,
+		location: optionStatement.location,
 	});
 
 	optionCommand.index = this.logicCommands.length;

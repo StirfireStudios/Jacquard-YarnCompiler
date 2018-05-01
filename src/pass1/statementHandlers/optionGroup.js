@@ -23,5 +23,6 @@ export default function handler(statement) {
 
 	this.logicCommands.push({
 		type: Commands.Names.RunOptions,
+		location: statement.location,
 	});
 }

@@ -35,6 +35,7 @@ export default function handler(statement) {
 		const endJump = {
 			type: Commands.Names.Jump,
 			index: -1,
+			location: statement.location,
 		}
 		endJumps.push(endJump);
 		this.logicCommands.push(endJump);

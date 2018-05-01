@@ -51,7 +51,10 @@ function processStatement(statement) {
 		case Statement.OptionGroup:
 			Handlers.OptionGroup.call(this, statement);
 			break;
-	  case Statement.ShortcutGroup:
+		case Statement.Shortcut:
+			Handlers.Shortcut.call(this, statement);
+			break;
+		case Statement.ShortcutGroup:
 			Handlers.ShortcutGroup.call(this, statement);
 			break;
 		case Statement.Text:
