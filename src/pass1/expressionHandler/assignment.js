@@ -35,7 +35,7 @@ function execAndAssign(list, expression, type) {
 		location: expression.location,
 	});
 	assign(list, expression);
-	clean(list, expression, 0, 2);
+	clean(list, expression, 1, 1);
 }
 
 export default function handle(expression) {
@@ -51,7 +51,6 @@ export default function handle(expression) {
 			break;
 		case Expression.AssignOperator: 
 			assign(list, expression);
-			clean(list, expression, 0, 1);
 			break;
 		case Expression.DivideAssignOperator:
 			execAndAssign(list, expression, Commands.Names.Divide);

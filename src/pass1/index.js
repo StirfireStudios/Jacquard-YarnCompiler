@@ -33,11 +33,11 @@ function processStatement(statement) {
 	  case Statement.Conditional:
 			console.log("Conditional");
 			break;
-	  case Statement.Evaluate:
-			console.log("Evaluate");
+		case Statement.Evaluate:
+			Handlers.Evaluate.call(this, statement);
 			break;
 		case Statement.Function:
-			console.log("Function");
+			Handlers.Function.call(this, statement);
 			break;
 		case Statement.LineGroup:
 			console.log("LineGroup");
