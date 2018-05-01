@@ -17,6 +17,7 @@ function uniqueDialogName(state) {
 export function SetDialogName(state, name) {
   state = state.dialogSegments;
   state.current.name = name;
+  state.current.nameAssigned = true;
 }
 
 export function AddToCurrent(state, statement) {
@@ -24,7 +25,8 @@ export function AddToCurrent(state, statement) {
 
 	if (state.current == null) {
 		state.current = {
-			name: uniqueDialogName(state),
+      name: uniqueDialogName(state),
+      nameAssigned: false,
 			commands: [],
 		}
   }
@@ -39,7 +41,10 @@ export function InDialogBlock(state) {
 export function FinishCurrent(state) {
   const dlgState = state.dialogSegments;
   if (dlgState.current == null) return;
-  dlgState.byName[dlgState.current.name] = dlgState.current.commands;
+  dlgState.byName[dlgState.current.name] = {
+    nameAssigned: dlgState.current.nameAssigned,
+    commands: dlgState.current.commands,
+  };
 
   state.logicCommands.push({
     type: Commands.Names.ShowDialogBlock,

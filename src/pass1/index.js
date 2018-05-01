@@ -67,6 +67,12 @@ function processStatement(statement) {
 	}
 }
 
+/**
+ * This Handles pass 1 compiling which just unrolls all the nested statements 
+ * into a continous list of commands.
+ * Jump instructions are either referencing command indexes or node names
+ * function, variable and string references are still referencing the names.
+ */
 export default class CompilerPass1 {
 	constructor() {
 		const privates = SetupPrivates(defaults, {});

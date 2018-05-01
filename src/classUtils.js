@@ -6,6 +6,8 @@
  * @returns {Object<string, *>} an object that is the private variables with new instances of any non-overridden values
  */
 export function SetupPrivates(defaults, attrs) {
+  if (attrs == null) attrs = {};
+
   const privates = {};
   Object.keys(defaults).forEach(fieldName => {
     if (attrs.hasOwnProperty(fieldName)) {

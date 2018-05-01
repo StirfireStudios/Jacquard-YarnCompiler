@@ -2,6 +2,8 @@
 
 import CompiledNode from './compiledNode';
 import Commands from './commands';
+import Pass1Compiler from './pass1';
+import Pass2Compiler from './pass2';
 
 const privateProps = new WeakMap();
 
@@ -80,13 +82,27 @@ export class Compiler {
 
 		privates.linkingRequired = true;
 
+		// pass 1, basic statement unrolling
 		yarnParser.nodeNames.forEach((name) => {
 			const yarnNode = yarnParser.nodeNamed(name);
-			const pass1Node = CompiledNode.FromYarnParserNode(yarnNode);
-			privates.compiledNodes[name] = pass1Node;
+			const compiler = new Pass1Compiler();
+			compiler.process(yarnNode.statements);
+			privates.compiledNodes[name] = new CompiledNode({
+				name: name,
+				logicCommands: compiler.logicCommands,
+				dialogSegments: compiler.dialogSegments,
+			})
 		});
 
-		 return privates.errors.length != errorCount;
+		// pass 2, node & dialogsegment concatenation
+		const pass2Compiler = new Pass2Compiler();
+		yarnParser.nodeNames.forEach((name) => {
+			const compiledNode = privates.compiledNodes[name];
+			pass2Compiler.add(compiledNode);
+		});
+		pass2Compiler.finish();
+
+		return privates.errors.length != errorCount;
 	}
 
 	/** Reset the state of this Compiler
