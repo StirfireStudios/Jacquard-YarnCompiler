@@ -1,6 +1,9 @@
+export {default as Conditional} from './conditional';
 export {default as Command} from './command';
 export {default as Evaluate} from './evaluate';
 export {default as Function} from './function';
 export {default as LineGroup} from './lineGroup';
 export {default as Link} from './link';
+//export {default as OptionGroup} from './optionGroup';
+//export {default as ShortcutGroup} from './shortcutGroup';
 export {default as Text} from './text';

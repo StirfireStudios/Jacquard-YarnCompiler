@@ -31,7 +31,7 @@ function processStatement(statement) {
 			Handlers.Command.call(this, statement);
 			break;
 	  case Statement.Conditional:
-			console.log("Conditional");
+			Handlers.Conditional.call(this, statement);
 			break;
 		case Statement.Evaluate:
 			Handlers.Evaluate.call(this, statement);
@@ -78,13 +78,12 @@ export default class CompilerPass1 {
 	get dialogSegments() { return privateProps.get(this).state.dialogSegments; }
 
 	process(statements) {
-		statements = statements.map(item => {return item;});
 		const state = privateProps.get(this).state;
+		state.processStatement = processStatement.bind(state);
 		DialogSegments.Setup(state);
-		while(statements.length > 0) {
-			const statement = statements.shift();
+		statements.forEach(statement => { 
 			processStatement.call(state, statement, statements);
-		}
+		});
 		DialogSegments.FinishCurrent(this);
 	}
 }
