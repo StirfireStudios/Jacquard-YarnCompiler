@@ -9,4 +9,13 @@ export default function handler(statement) {
 		string: statement.text,
 		location: statement.location,
 	});
+	DialogSegments.AddToCurrent(this, {
+		type: Commands.Names.ShowText,
+		location: statement.location,
+	});
+	DialogSegments.AddToCurrent(this, {
+		type: Commands.Names.ClearArguments,
+		arg0: 1,
+		location: statement.location,
+	});
 }

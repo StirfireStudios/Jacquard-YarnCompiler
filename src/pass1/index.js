@@ -40,7 +40,7 @@ function processStatement(statement) {
 			Handlers.Function.call(this, statement);
 			break;
 		case Statement.LineGroup:
-			console.log("LineGroup");
+			Handlers.LineGroup.call(this, statement)
 			break;
 	  case Statement.Link:
 			Handlers.Link.call(this, statement);

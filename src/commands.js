@@ -13,15 +13,15 @@ export const byName = {
 	 * @memberof ByName
 	 */
 	Noop: "000",
-	/** Display the current stack.
+	/** Display the last X arguments on the stack.
    * This is a valid Logic File instruction. 
 	 * This is a valid Dialog File instruction.
 	 * No parameters.
 	 * @memberof ByName
 	 */
 	ShowText: "001",
-	/** Pass the current stack to the engine as a message
-   * This is a valid Logic File instruction. 
+	/** Pass the the last X arguments on the stack to the engine as a message
+   * This is a valid Logic File instruction.
  	 * This is a valid Dialog File instruction.
 	 * No parameters.
 	 * @memberof ByName
