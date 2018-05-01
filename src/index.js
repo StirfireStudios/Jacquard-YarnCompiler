@@ -86,7 +86,7 @@ export class Compiler {
 			privates.compiledNodes[name] = pass1Node;
 		});
 
-		return privates.errors.length != errorCount;
+		 return privates.errors.length != errorCount;
 	}
 
 	/** Reset the state of this Compiler

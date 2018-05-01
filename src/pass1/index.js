@@ -45,11 +45,14 @@ function processStatement(statement) {
 	  case Statement.Link:
 			Handlers.Link.call(this, statement);
 			break;
-	  case Statement.OptionGroup:
-			console.log("Option Group");
+		case Statement.Option:
+			Handlers.Option.call(this, statement);
+			break;
+		case Statement.OptionGroup:
+			Handlers.OptionGroup.call(this, statement);
 			break;
 	  case Statement.ShortcutGroup:
-			console.log("Shortcut Group");
+			Handlers.ShortcutGroup.call(this, statement);
 			break;
 		case Statement.Text:
 			Handlers.Text.call(this, statement);

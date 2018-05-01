@@ -2,43 +2,26 @@
 
 import { Statement } from 'jacquard-yarnparser';
 
+import OptionHandler from './option';
+import ConditionalHandler from './conditional';
 import * as Commands from '../../commands';
-import CommandHandler from './command';
-import * as DialogSegments from '../dialogSegments'
-
-function handleSubStatement(statement) {
-	switch(statement.constructor) {
-		case Statement.Text:
-			DialogSegments.AddToCurrent(this, {
-				type: Commands.Names.StaticString,
-				string: statement.text,
-				location: statement.location,
-			});
-			break;
-		case Statement.Evaluate:
-			ExpressionHandler.call(this, statement.expression);
-			break;
-		case Statement.Command:
-			CommandHandler.call(this, statement);
-			break;
-		default:
-			console.error("Unknown substatement for a linegroup");
-			return;
-	}
-}
 
 export default function handler(statement) {
-	const subStatements = statement.statements;
-	subStatements.forEach((subStatement) => {
-		handleSubStatement.call(this, subStatement);
+	statement.statements.forEach(statement => {
+		switch(statement.constructor) {
+			case Statement.Option:
+				OptionHandler.call(this, statement);
+				break;
+			case Statement.Conditional:
+				ConditionalHandler.call(this, statement);
+				break;
+			default:
+				console.error("Invalid statement type in option group");
+				return;
+		}
 	});
-	DialogSegments.AddToCurrent(this, {
-		type: Commands.Names.ShowText,
-		location: statement.location,
-	});
-	DialogSegments.AddToCurrent(this, {
-		type: Commands.Names.ClearArguments,
-		arg0: subStatements.length,
-		location: statement.location,
+
+	this.logicCommands.push({
+		type: Commands.Names.RunOptions,
 	});
 }
