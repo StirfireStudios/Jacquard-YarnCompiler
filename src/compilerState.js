@@ -7,9 +7,15 @@ export default class CompilerState {
 	
 	reset() {
 		this.nodeNames = [];
+		this.characters = [];
+		this.functions = [];
+		this.variables = [];
+		this.strings = [];
 		this.nodeStarts = [];
 		this.logicCommands = [];
 		this.dialogSegments = {};
+		this.dialogCharacters = [];
+		this.dialogStrings = [];
 		this.errors = [];
 		this.warnings = [];
 		this.linkingRequired = true;		

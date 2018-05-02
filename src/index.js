@@ -4,6 +4,7 @@ import Commands from './commands';
 import CompilerState from './compilerState';
 import Pass1 from './pass1';
 import * as Pass2 from './pass2';
+import Pass3 from './pass3';
 import CompilerPass1 from './pass1/index';
 
 const privateProps = new WeakMap();
@@ -88,6 +89,8 @@ export class Compiler {
 			Pass2.add(state, Pass1(yarnNode));
 		});
 		Pass2.finish(state);
+
+		Pass3(state);
 
 		return state.errors.length != errorCount;
 	}

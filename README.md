@@ -70,7 +70,7 @@ The logic file contains the general graph flow and expressions. Text that is to 
   - Function Table (`StringTable`) - The Function table (if exists)
   - Character Table (`StringTable`) - The Character table (if exists)
   - Variable Table (`StringTable`) - The Variable table (if exists)
-  
+  - String Table (`StringTable`) - The String table (if exists)
   - Node Table (`StringEntryPointTable`) - The Node Table (with entry points)
   - Logic Instruction Block - Defined below
 
