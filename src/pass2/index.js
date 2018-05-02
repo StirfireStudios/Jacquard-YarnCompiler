@@ -19,7 +19,7 @@ const defaultState = {
 function insertStartNode() {
 	this.logicCommands.push({
 		type: Commands.Names.NodeEntry,
-		arg0: this.currentNodeIndex,
+		arg0: this.currentNode.tableIndex,
 	})
 }
 
@@ -41,48 +41,34 @@ function handleCommand(command, dialogSegments) {
  * This Handles pass 2 compiling which concatenates all the nodes into one long list
  * and builds the start of the node table (for the logic file) and dialog table (for the dialog file)
  */
-export default class CompilerPass2 {
-	constructor() {
-		privateState.set(this, SetupPrivates(defaultState));
-	} 
-
-	get nodeNames() { return privateState.get(this).nodeNames; } 
-
-	get nodeStarts() { return privateState.get(this).nodeStarts; }
-
-	get logicCommands() { return privateState.get(this).logicCommands; }
-
-	get dialogSegments() { return privateState.get(this).dialogSegments; }
-
-	add(compiledNode) {
-		const state = privateState.get(this);
-
-		if (state.nodeNames.indexOf(compiledNode.name) != -1) {
-			console.error("Node already exists in pass2");
-			return;
-		}
-
-		state.currentNode = {
-			name: compiledNode.name,
-			startIndex: state.logicCommands.length,
-			tableIndex: state.nodeStarts.length,
-		}
-
-		state.nodeNames.push(compiledNode.name);
-		state.nodeStarts.push(state.currentNode.startIndex);
-		
-		insertStartNode.call(state);
-
-		// we do this here, after we've inserted anything required for node start
-		state.currentNode.logicOffset = state.logicCommands.length; 
-		compiledNode.logicCommands.forEach(command => {
-			handleCommand.call(state, command, compiledNode.dialogSegments);
-		});
+export function add(state, pass1Output) {
+	if (state.dialogNameIndex == undefined) state.dialogNameIndex = -1;
+	if (state.nodeNames.indexOf(pass1Output.name) != -1) {
+		console.error("Node already exists in pass2");
+		return;
 	}
 
-	finish() {
-		privateState.get(this).logicCommands.forEach(command => {
-			if (command.type == Commands.Names.Jump) HandleNodeJump.call(this, command);
-		});		
+	state.currentNode = {
+		name: pass1Output.name,
+		startIndex: state.logicCommands.length,
+		tableIndex: state.nodeStarts.length,
 	}
+
+	state.nodeNames.push(pass1Output.name);
+	state.nodeStarts.push(state.currentNode.startIndex);
+	
+	insertStartNode.call(state);
+
+	// we do this here, after we've inserted anything required for node start
+	state.currentNode.logicOffset = state.logicCommands.length; 
+	pass1Output.logicCommands.forEach(command => {
+		handleCommand.call(state, command, pass1Output.dialogSegments);
+	});
+}
+
+export function finish(state) {
+	state.logicCommands.forEach(command => {
+		if (command.type == Commands.Names.Jump) HandleNodeJump.call(state, command);
+	});
+	delete(state.dialogNameIndex);
 }

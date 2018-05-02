@@ -67,35 +67,33 @@ function processStatement(statement) {
 	}
 }
 
+
+function setupState() {
+	return {
+		currentDialog: null,
+		logicCommands: [],
+		dialogSegments: {},
+	};
+}
+
 /**
  * This Handles pass 1 compiling which just unrolls all the nested statements 
  * into a continous list of commands.
  * Jump instructions are either referencing command indexes or node names
  * function, variable and string references are still referencing the names.
+ * This is desiggned to run on one node at a time.
  */
-export default class CompilerPass1 {
-	constructor() {
-		const privates = SetupPrivates(defaults, {});
-		privates.state = {
-			currentDialog: null,
-			logicCommands: [],
-			dialogSegments: {},
-		};
+export default function Pass1(node) {
+	const state = setupState();
+	state.name = node.name;
+	state.processStatement = processStatement.bind(state);
+	DialogSegments.Setup(state);
+	node.statements.forEach(statement => { 
+		processStatement.call(state, statement, node.statements);
+	});
+	DialogSegments.FinishCurrent(state);
 
-		privateProps.set(this, privates);
-	}
-
-	get logicCommands() { return privateProps.get(this).state.logicCommands; }
-
-	get dialogSegments() { return privateProps.get(this).state.dialogSegments; }
-
-	process(statements) {
-		const state = privateProps.get(this).state;
-		state.processStatement = processStatement.bind(state);
-		DialogSegments.Setup(state);
-		statements.forEach(statement => { 
-			processStatement.call(state, statement, statements);
-		});
-		DialogSegments.FinishCurrent(this);
-	}
+	delete(state.processStatement);
+	delete(state.currentDialog);
+	return state;
 }

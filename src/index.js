@@ -1,9 +1,10 @@
 'use strict';
 
-import CompiledNode from './compiledNode';
 import Commands from './commands';
-import Pass1Compiler from './pass1';
-import Pass2Compiler from './pass2';
+import CompilerState from './compilerState';
+import Pass1 from './pass1';
+import * as Pass2 from './pass2';
+import CompilerPass1 from './pass1/index';
 
 const privateProps = new WeakMap();
 
@@ -32,10 +33,7 @@ const defaultConfig = {
 }
 
 function resetState(privates) {
-	privates.errors = [];
-	privates.warnings = [];
-	privates.compiledNodes = {};
-	privates.undefinedNodes = {};
+	privates.state.reset();
 	privates.linkingRequired = true;
 }
 
@@ -67,7 +65,7 @@ export class Compiler {
 			config: Object.assign({}, defaultConfig),
 		}
 
-		resetState(privates);
+		privates.state = new CompilerState();
 
 		privateProps.set(this, privates);
 	}
@@ -78,31 +76,20 @@ export class Compiler {
 	 */
 	process(yarnParser) {
 		const privates = privateProps.get(this);
-		const errorCount = privates.errors.length;
+		const config = privates.config;
+		const state = privates.state;
+		const errorCount = state.errors.length;
 
-		privates.linkingRequired = true;
+		state.linkingRequired = true;
 
-		// pass 1, basic statement unrolling
+		// pass 1 and 2 - generate command lists and concatenate all nodes together;
 		yarnParser.nodeNames.forEach((name) => {
 			const yarnNode = yarnParser.nodeNamed(name);
-			const compiler = new Pass1Compiler();
-			compiler.process(yarnNode.statements);
-			privates.compiledNodes[name] = new CompiledNode({
-				name: name,
-				logicCommands: compiler.logicCommands,
-				dialogSegments: compiler.dialogSegments,
-			})
+			Pass2.add(state, Pass1(yarnNode));
 		});
+		Pass2.finish(state);
 
-		// pass 2, node & dialogsegment concatenation
-		const pass2Compiler = new Pass2Compiler();
-		yarnParser.nodeNames.forEach((name) => {
-			const compiledNode = privates.compiledNodes[name];
-			pass2Compiler.add(compiledNode);
-		});
-		pass2Compiler.finish();
-
-		return privates.errors.length != errorCount;
+		return state.errors.length != errorCount;
 	}
 
 	/** Reset the state of this Compiler
