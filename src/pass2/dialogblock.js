@@ -20,9 +20,13 @@ export default function handleCommand(command, nodeSegments) {
 		let exists = true;
 		while(exists) {
 			this.dialogNameIndex += 1;
-			name = this.dialogNameIndex.toString(15);
+			name = this.dialogNameIndex.toString(16);
 			exists = this.dialogSegments[name] != null;
 		}
+	}
+
+	if (name.length > this.dialogNameMaxLength) {
+		this.dialogNameMaxLength = name.length; 
 	}
 
 	this.dialogSegments[name] = orgDialogSegment.commands.map(command => {

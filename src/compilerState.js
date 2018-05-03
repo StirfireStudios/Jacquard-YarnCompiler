@@ -18,6 +18,10 @@ export default class CompilerState {
 		this.dialogStrings = [];
 		this.errors = [];
 		this.warnings = [];
-		this.linkingRequired = true;		
+		this.linkingRequired = true;
+		this.logicHeaders = {};
+		this.logicCommandBuffers = [];
+		this.dialogHeaders = {};
+		this.dialogCommandBuffers = [];
 	}
 }

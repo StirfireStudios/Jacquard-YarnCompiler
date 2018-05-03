@@ -12,7 +12,7 @@ const YarnCompiler = require('./dist/index').Compiler;
 
 program
   .version(package.version)
-  .arguments('<infile/indir>')
+  .arguments('<infile/indir>', '<outdir>')
   .parse(process.argv);
 
 const config = {
@@ -53,6 +53,25 @@ if (program.args.length < 1) {
   }
 }
 
+if (program.args.length < 2) {
+  console.error('output dir not specified');
+  config.ready = false;
+  config.outputHelp = true;
+} else {
+  const path = program.args[1];
+  const fileType = FileIO.PathType(path);  
+  switch(fileType) {
+    case FileIO.FileType.None:
+      fs.mkdir(path);
+    case FileIO.FileType.Directory:
+      config.outputDir = path;
+      break;
+    default:
+      console.error("output location exists and isn`t a directory");
+      config.ready = false;
+  }  
+}
+
 if (!config.ready) {
   if (config.outputHelp) {
     program.help();
@@ -83,21 +102,29 @@ for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {
 		})
 		return;
   }
-
-  if (config.preprocessOutputFiles != null) {
-    try {
-      const preprocessOutputPath = config.preprocessOutputFiles[fileIndex];
-      const output = FileIO.OpenFileWriteStream(preprocessOutputPath);
-      output.write(parser.preprocessedData);
-      FileIO.FinishWriteStream(output);
-    } catch(err) {
-      console.error(`Could not write preprocessed output ${config.filename} - ${err}`);
-    }
-  }
 }
 
 compiler = new YarnCompiler({sourceMap: true, debug: true});
 compiler.process(parser);
+compiler.assemble();
+
+try {
+  const compilerOutputPath = Path.join(config.outputDir, "output.jqrd");
+  const debugOutputPath = Path.join(config.outputDir, "output.jqrd.debug");
+  const sourceMapPath = Path.join(config.outputDir, "output.jqrd.sourcemap");
+
+  const bytecode = FileIO.OpenFileWriteStream(compilerOutputPath);
+  const debug = FileIO.OpenFileWriteStream(debugOutputPath);
+  const sourceMap = FileIO.OpenFileWriteStream(sourceMapPath);
+
+  compiler.writeBytecode(bytecode, debug, sourceMap);
+
+  FileIO.FinishWriteStream(bytecode);
+  FileIO.FinishWriteStream(debug);
+  FileIO.FinishWriteStream(sourceMap);
+} catch(err) {
+  console.error(`Could not write files - ${err}`);
+}
 
 console.log("Files succesfully parsed, compiling");
 

@@ -12,7 +12,8 @@
 			"sourceMaps": true,
 			"outFiles": ["${workspaceRoot}/dist/**"],
 			"args": [
-				"yarn_files"
+				"yarn_files",
+				"compiled_bytecode",
 			]
 		},
 	]

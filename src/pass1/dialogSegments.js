@@ -41,6 +41,11 @@ export function InDialogBlock(state) {
 export function FinishCurrent(state) {
   const dlgState = state.dialogSegments;
   if (dlgState.current == null) return;
+
+  dlgState.current.commands.push({
+    type: Commands.Names.DialogBlockEnd,
+  })
+
   dlgState.byName[dlgState.current.name] = {
     nameAssigned: dlgState.current.nameAssigned,
     commands: dlgState.current.commands,

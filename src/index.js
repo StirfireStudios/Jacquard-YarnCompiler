@@ -5,6 +5,7 @@ import CompilerState from './compilerState';
 import Pass1 from './pass1';
 import * as Pass2 from './pass2';
 import Pass3 from './pass3';
+import Pass4 from './pass4';
 import CompilerPass1 from './pass1/index';
 
 const privateProps = new WeakMap();
@@ -14,17 +15,6 @@ const privateProps = new WeakMap();
  * @class CompilerConfig
  */
 const defaultConfig = {
-	/** Should this compiler output a sourcemap. Defaults to false.
-	 * @type {boolean}
-	 * @default false
-	 * @memberof CompilerConfig */
-	sourceMap: false,
-	/** Should this compiler output a text file containing information on the 
-	 * compiled source. Defaults to false.
-	 * @type {boolean}
-	 * @default false
-	 * @memberof CompilerConfig */
-	debug: false,
 	/** Should the compiler insert a debug node if an unknown node was linked to.
 	 * Defaults to true
 	 * @type {boolean}
@@ -93,6 +83,19 @@ export class Compiler {
 		Pass3(state);
 
 		return state.errors.length != errorCount;
+	}
+
+	/** Link and finalize assembly of the bytecode ready for writing.
+	 * (Passes 4, 5 and 6)
+	 */
+	assemble() {
+		const state = privateProps.get(this).state;
+
+		Pass4(state);
+	}
+
+	writeBytecode(stream, debugStream, sourceMapStream) {
+
 	}
 
 	/** Reset the state of this Compiler

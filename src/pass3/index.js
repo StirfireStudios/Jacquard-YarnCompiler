@@ -27,6 +27,13 @@ function handleLogicCommand(command) {
 			command.arg0 = insertOrFindInTable(this.functions, command.name);
 			delete(command.name);
 			break;
+		case Commands.Names.ShowDialogBlock:
+			if (command.characterRef === -1) {
+				command.arg1 = -1;
+			} else {
+				command.arg1 = insertOrFindInTable(this.characters, command.name);
+			}
+			delete(command.characterRef);
 	}
 }
 

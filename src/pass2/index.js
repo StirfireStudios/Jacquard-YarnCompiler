@@ -6,16 +6,6 @@ import HandleIndexJump from './indexJump';
 import HandleNodeJump from './nodeJump';
 import { SetupPrivates } from '../classUtils';
 
-const privateState = new WeakMap();
-
-const defaultState = {
-	nodeNames: [],
-	nodeStarts: [],
-	logicCommands: [],
-	dialogSegments: {},
-	dialogNameIndex: 0,
-}
-
 function insertStartNode() {
 	this.logicCommands.push({
 		type: Commands.Names.NodeEntry,
@@ -33,6 +23,7 @@ function handleCommand(command, dialogSegments) {
 			break;
 		case Commands.Names.ShowDialogBlock:
 			HandleDialogBlock.call(this, copiedCommand, dialogSegments);
+			this.showDialogCommands.push(copiedCommand);
 	}
 	this.logicCommands.push(copiedCommand);
 }
@@ -43,6 +34,8 @@ function handleCommand(command, dialogSegments) {
  */
 export function add(state, pass1Output) {
 	if (state.dialogNameIndex == undefined) state.dialogNameIndex = -1;
+	if (state.dialogNameMaxLength == undefined) state.dialogNameMaxLength = 0;
+	if (state.showDialogCommands == undefined) state.showDialogCommands = [];
 	if (state.nodeNames.indexOf(pass1Output.name) != -1) {
 		console.error("Node already exists in pass2");
 		return;
@@ -70,5 +63,17 @@ export function finish(state) {
 	state.logicCommands.forEach(command => {
 		if (command.type == Commands.Names.Jump) HandleNodeJump.call(state, command);
 	});
+	 
+	const renamedDialogSegments = {};
+	state.showDialogCommands.forEach(command => {
+		const newName = command.arg0.padStart(state.dialogNameMaxLength, "0");
+		renamedDialogSegments[newName] = state.dialogSegments[command.arg0];
+		command.arg0 = newName;
+	});
+
+	state.dialogSegments = renamedDialogSegments;
+
 	delete(state.dialogNameIndex);
+	delete(state.dialogNameMaxLength);
+	delete(state.showDialogCommands);
 }

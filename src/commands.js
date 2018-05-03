@@ -225,7 +225,7 @@ export const byName = {
 	 * 2..n - (StackOffset) - the argument stack offset
    * @memberof ByName
 	 */
-	FunctionReturn: "028",
+	FunctionReturn: "030",
 	/** Use the specified stack values, run the specified function. Result is discarded.
    * This is a valid Logic File instruction. 
 	 * This is a valid Dialog File instruction.
@@ -234,33 +234,40 @@ export const byName = {
 	 * 2..n - (StackOffset) - the argument stack offset
    * @memberof ByName
 	 */
-	FunctionNoReturn: "128",
+	FunctionNoReturn: "130",
 
 	// Options
 	/** Add another option to the option stack. 
+	 * This is a valid Logic File instruction.
 	 * 0 - (varInt) byte offset of the instruction after this option's instructions
 	 * @memberof ByName
 	 */
 	PushOption: "50",
-	/** Run all the options on the stack.
+	/** Run all the options on the stack. (Should clear the option stack)
+	 * This is a valid Logic File instruction.
 	 * No Parameters.
 	 * @memberof ByName
 	 */
 	RunOptions: "51",
 	
-	/** Clear the top (arg0) values from the argument stack, or the entire stack (if arg0 is 255)
-	 * 0 - (bytes) the number of values to clear from the stack. If this is 255, clear the whole stack.
+	/** Clear the top (arg1) values starting from arg0 off the argument stack, or to the end (if arg1 is 255)
+   * This is a valid Logic File instruction. 
+	 * This is a valid Dialog File instruction.
+	 * 0 - (bytes) the index to start clearing from the stack (top is 0) 
+	 * 1 - (bytes) the number of values to clear from the stack. If this is 255, clear to the end.
 	 * @memberof ByName
 	 */
 	ClearArguments: "375",
-	/** Clear the top (arg0) values from the option stack, or the entire stack (if arg0 is 255)
-	 * 0 - (bytes) the index to start clearing from the stack (top is 0)
-	 * 1 - (bytes) the number of values to remove from the stack
+	/** Clear the top (arg1) values starting from arg0 off the option stack, or the end (if arg1 is 255)
+   * This is a valid Logic File instruction. 
+ 	 * 0 - (bytes) the index to start clearing from the stack (top is 0)
+	 * 1 - (bytes) the number of values to remove from the stack, If this is 255, clear to the end.
 	 * @memberof ByName
 	 */
 	ClearOptionStack: "376",
 	/** We're starting an options list here. The options list should be clear. This is for debug only.
 	 * At some point this will be removed.
+ 	 * This is a valid Logic File instruction.
 	 * No parameters.
 	 * @memberof ByName
 	 */
