@@ -8,8 +8,8 @@ Calling visited("Start") should return True now, since we have visited this node
 <<if visited("Start")>>
     Called visited("Start") and confirmed that we've visited Start!
 <<endif>>
-<<set $variable1 to true>>
-A variable named "variable1" is now set to True, and the debug log should reflect this.
+<<set $variable1 to true>> 
+A variable named "variable1" is now set to {$variable1}, and the debug log should reflect this.
 We are auto-advancing to the next node, "Node1".
 [[Node1]]
 ===
@@ -44,8 +44,14 @@ colorID: 0
 position: 1170,404
 ---
 Standard choice syntax test.
-[[Choice 1|Node3]]
-[[Choice 2|Node4]]
+-> Choice 1
+   [[Node3]]
+-> Choice 2
+   [[Node4]]
+<< if $variable1 >>
+  -> Choice 1 Repeat
+     [[Node3]]
+<< endif >>
 ===
 title: Node3
 tags: 

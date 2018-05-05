@@ -37,8 +37,6 @@ export function Jump(command) {
 	const opCode = Buffer.from([Commands.ByName[command.type]]);
 	const address = BufferUtils.fixedInt(0, BufferUtils.varIntMaxSize);
 	const buffer = Buffer.concat([opCode, address]);
-	buffer.location = command.location;
-	buffer.originalIndex = command.index;
 	buffer.info = {};
 	return buffer;
 }

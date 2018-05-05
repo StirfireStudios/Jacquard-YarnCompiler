@@ -6,7 +6,7 @@ import Pass1 from './pass1';
 import * as Pass2 from './pass2';
 import Pass3 from './pass3';
 import Pass4 from './pass4';
-import CompilerPass1 from './pass1/index';
+import Pass5 from './pass5';
 
 const privateProps = new WeakMap();
 
@@ -92,6 +92,7 @@ export class Compiler {
 		const state = privateProps.get(this).state;
 
 		Pass4(state);
+		Pass5(state);
 	}
 
 	writeBytecode(stream, debugStream, sourceMapStream) {
