@@ -1,9 +1,9 @@
 'use strict';
 
-import Write from './streamWriter';
 import * as BufferUtils from '../bufferUtils';
-import * as DebugUtils from './debugUtils';
 import * as CreateTableBuffers from './tableBuffers';
+import * as DebugUtils from './debugUtils';
+import Write from './streamWriter';
 
 const StringTableOrder = 	["functions", "characters", "variables", "strings"];
 

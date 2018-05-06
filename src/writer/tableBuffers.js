@@ -57,25 +57,28 @@ export function StringEntryPoint(stringTable, entryPointTable, debugData) {
 	return tableBuffers;
 }
 
-export function ByteEntryPoint(byteTable, offsetTable, debugData) {
+export function ByteEntryPoint(byteTable, debugData) {
 	const tableBuffers = []
 	if (debugData != null) { tableBuffers.debugData = []; }
-	let buffer = BufferUtils.varInt(table.length);
+	const byteNames = Object.keys(byteTable);
+	let offset = 0;
+	let buffer = BufferUtils.varInt(byteNames.length);
 	tableBuffers.push(buffer);
 	const debugEntry = DebugUtils.AddTemp(
 		tableBuffers.debugData, 0, buffer.byteLength, 
-		`Table has ${table.length} entries`, buffer
+		`Table has ${byteNames.length} entries`, buffer
 	);
+
 	offset += buffer.byteLength;
 
-	for(let index = 0; index < stringTable.length; index++) {
-		const stringVal = stringTable[index];
-		const entryPoint = entryPointTable[index];
-		const buffer = Buffer.concat([BufferUtils.varString(stringVal), BufferUtils.varInt(entryPoint)]);
+	for(let index = 0; index < byteNames.length; index++) {
+		const byteHexString = byteNames[index];
+		const entryPoint = byteTable[byteHexString];
+		const buffer = Buffer.concat([BufferUtils.varBytesFromHexString(byteHexString), BufferUtils.varInt(entryPoint)]);
 		DebugUtils.AddTemp(
 			tableBuffers.debugData, offset, 
 			buffer.byteLength, 
-			`"${stringVal}" starts at offset ${entryPoint}`,
+			`"${byteHexString}" starts at offset ${entryPoint}`,
 		);
 		tableBuffers.push(buffer);
 		offset += buffer.byteLength;

@@ -15,7 +15,7 @@ export default function write(stream, buffer) {
 		if (ok) {
 			resolve(length);
 		} else {
-			writer.once('drain', resolve.bind(null, length));
+			stream.once('drain', resolve.bind(null, length));
 		}
 	});
 }

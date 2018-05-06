@@ -40,7 +40,7 @@ export default function write(logicStream, dialogueStream, sourceMapStream, debu
 		.then(() => { /* writeDialogBuffers.call(state, dialogueStream); */ })
 		.then(() => {
 			if (debugStream != null) {
-				DebugUtils.Write(state.debugData, debugStream);
+				return DebugUtils.Write(state.debugData, debugStream);
 			}
 		})
 		.then(() => { resolve();});

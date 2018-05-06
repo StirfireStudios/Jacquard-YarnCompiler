@@ -82,11 +82,11 @@ export default function Pass4(state) {
 		offset += encodedCommand.byteLength;
 	});
 
-	state.dialogHeaders.blockTable = {}
+	state.dialogHeaders = {}
 	offset = 0;
 	Object.keys(state.dialogSegments).forEach(name => {
 		const dialogSegment = state.dialogSegments[name];
-		state.dialogHeaders.blockTable[name] = state.dialogCommandBuffers.length;
+		state.dialogHeaders[name] = offset;
 		dialogSegment.forEach(command => {
 			let encodedCommand = null;
 			switch(command.type) {
