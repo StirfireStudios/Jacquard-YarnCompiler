@@ -68,7 +68,6 @@ export function AddHeader(array, header) {
 }
 
 export async function Write(array, stream) {
-	console.log("Writing Debug File");
 	const headers = [
 		"Absolute Position",
 		"Hex Data",

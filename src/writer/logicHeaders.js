@@ -8,7 +8,6 @@ import Write from './streamWriter';
 const StringTableOrder = 	["functions", "characters", "variables", "strings"];
 
 export default async function write(stream) {
-	console.log("Writing Logic Headers");
 	let offset = 0;
 	let length = 0;
 

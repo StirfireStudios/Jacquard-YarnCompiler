@@ -8,7 +8,6 @@ import Write from './streamWriter';
 const StringTableOrder = 	["dialogCharacters", "dialogStrings"]; 
 
 export default async function write(stream) {
-	console.log("Writing Dialogue Headers");
 	let offset = 0;
 	let length = 0;
  
