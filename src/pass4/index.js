@@ -83,11 +83,13 @@ export default function Pass4(state) {
 	});
 
 	state.dialogHeaders = {}
+	state.dialogCommands = [];
 	offset = 0;
 	Object.keys(state.dialogSegments).forEach(name => {
 		const dialogSegment = state.dialogSegments[name];
 		state.dialogHeaders[name] = offset;
 		dialogSegment.forEach(command => {
+			state.dialogCommands.push(command);
 			let encodedCommand = null;
 			switch(command.type) {
 				// these all take no arguments and are just the opcode.
@@ -142,7 +144,6 @@ export default function Pass4(state) {
 			encodedCommand.info.location = command.location;
 			encodedCommand.info.byteOffset = offset;
 			state.dialogCommandBuffers.push(encodedCommand);
-
 			offset += encodedCommand.byteLength;
 		});
 		Encode.DialogSegment(state.dialogCommandBuffers);

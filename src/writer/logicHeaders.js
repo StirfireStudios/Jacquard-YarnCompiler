@@ -8,20 +8,20 @@ import Write from './streamWriter';
 const StringTableOrder = 	["functions", "characters", "variables", "strings"];
 
 export default async function write(stream) {
-	let offset = 0;
+	this.offset = 0;
 	let length = 0;
 
 	DebugUtils.AddHeader(this.debugData, "Logic File Debug Info");
 
 	//Type - Jaquard Logic
 	length = await Write(stream, "JQRDL");
-	DebugUtils.Add(this.debugData, offset, length, "File Type", "JQRDL")
-	offset += length;
+	DebugUtils.Add(this.debugData, this.offset, length, "File Type", "JQRDL")
+	this.offset += length;
 
  	//Version 
 	length = await Write(stream, BufferUtils.varString(this.version));
-	DebugUtils.Add(this.debugData, offset, length, "Version", this.version)
-	offset += length;
+	DebugUtils.Add(this.debugData, this.offset, length, "Version", this.version)
+	this.offset += length;
 
 	//StringTables
 	let indexBuffers = [];
@@ -50,10 +50,10 @@ export default async function write(stream) {
 	tableBuffers.push(nodeEntryBuffers);	
 
 	//estimate table offset sizes;
-	let maxOffset = offset;
+	let maxOffset = this.offset;
 	for(let indexBuffer of indexBuffers) maxOffset += indexBuffer.byteLength;
 
-	let tableStartOffset = offset;
+	let tableStartOffset = this.offset;
 	for(let tableBuffer of tableBuffers) {
 		if (tableBuffer.byteLength == 0) {
 			const buffer = BufferUtils.varInt(0);
@@ -82,25 +82,25 @@ export default async function write(stream) {
 			message = `${tableBuffer.name} starts at ${tableStartOffset}`;
 		}
 		length = await Write(stream, buffer);
-		DebugUtils.Add(this.debugData, offset, length, message ,buffer);
-		offset += length;
+		DebugUtils.Add(this.debugData, this.offset, length, message ,buffer);
+		this.offset += length;
 		tableStartOffset += tableBuffer.byteLength;
 	}
 
 	buffer = BufferUtils.fixedInt(tableStartOffset, instructionStartOffsetLength);
 	length = await Write(stream, buffer);
 	DebugUtils.Add(
-		this.debugData, offset, length, 
+		this.debugData, this.offset, length, 
 		`Instruction list starts at ${tableStartOffset}`, buffer);
-	offset += length;
+	this.offset += length;
 
 	for(let tableBuffer of tableBuffers) {
 		if (tableBuffer.byteLength === 0) continue; 
 		DebugUtils.AddHeader(this.debugData, `${tableBuffer.name} Table`);
-		DebugUtils.AddTempToMain(this.debugData, tableBuffer.debugData, offset);
+		DebugUtils.AddTempToMain(this.debugData, tableBuffer.debugData, this.offset);
 		for(let buffer of tableBuffer) {
 			length = await Write(stream, buffer);
-			offset += length;
+			this.offset += length;
 		}
 	}
 }

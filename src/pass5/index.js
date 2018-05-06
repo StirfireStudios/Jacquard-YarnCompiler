@@ -14,6 +14,7 @@ function commandIsJump(command) {
  
 export function encodeJump(command, destination, intSize) {
 	const opCode = Buffer.from([Commands.ByName[command.type]]);
+	command.address = destination;
 	let address = null;
 	if (intSize == null) {
 		address = BufferUtils.varInt(destination);
@@ -30,6 +31,9 @@ export function encodeJump(command, destination, intSize) {
 /** Calculate size of jump addresses now we know the rough locations of everything
  */
 export default function Pass5(state) {
+	const nodeStartIndexes = state.nodeStarts;
+	state.nodeStarts = [];
+
 	let offset = 0;
 	// this calculates the actual size of the jump addresses;
 	for(let index = 0; index < state.logicCommands.length; index++) {
@@ -63,6 +67,12 @@ export default function Pass5(state) {
 		if (encodedCommand.info.byteOffset != offset) {
 			throw new Error(`Pass 5a Offset ${encodedCommand.info.byteOffset} didn't match currentOffset ${offset} at index ${index}`);
 		}
+
+		if (index == nodeStartIndexes[0]) {
+			state.nodeStarts.push(offset);
+			nodeStartIndexes.shift();
+		}
+
 		offset += encodedCommand.byteLength;
 	}
 }

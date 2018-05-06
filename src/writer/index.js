@@ -31,15 +31,18 @@ export default function write(logicStream, dialogueStream, sourceMapStream, debu
 			version: VERSION, 
 			language: Language,
 			state: this,			
+			offset: 0,
 		}
-		if (sourceMapStream != null) state.sourceMapData = {};
+		if (sourceMapStream != null) state.sourceMapData = {logic: [], dialog:[];
 		if (debugStream != null) state.debugData = [];
 
 		DebugUtils.AddHeader(state.debugData, "Logic File Begin");
 		writeLogicHeaders.call(state, logicStream)
 		.then(() => { 
 			DebugUtils.AddHeader(state.debugData, "Logic Instruction Block");
-			return writeCommands.call(state, logicStream);
+			return writeCommands.call(state, 
+				logicStream, this.logicCommands, this.logicCommandBuffers, "logic",
+			);
 		})
 		.then(() => { 
 			DebugUtils.AddHeader(state.debugData, "Default Dialogue File Begin");
@@ -47,11 +50,13 @@ export default function write(logicStream, dialogueStream, sourceMapStream, debu
 		})
 		.then(() => { 
 			DebugUtils.AddHeader(state.debugData, "Dialogue Instruction Block");
-			return writeCommands.call(state, dialogueStream);
+			return writeCommands.call(state,
+				dialogueStream, this.dialogCommands, this.dialogCommandBuffers, "dialog",
+			);
 		})
 		.then(() => {
 			if (sourceMapStream != null) {
-				// Write sourcemaps
+				sourceMapStream.write(JSON.stringify(state.sourceMapData));
 			}
 		})
 		.then(() => {

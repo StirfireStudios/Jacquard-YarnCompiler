@@ -50,7 +50,8 @@ export function NoArg(command) {
 export function ShowDialogBlock(command) {
 	const opCode = Buffer.from([Commands.ByName[command.type]]);
 	const byteArray = BufferUtils.varBytesFromHexString(command.arg0);
-	const buffer = Buffer.concat([opCode, byteArray]);
+	const characterIndex = BufferUtils.varInt(command.arg1);
+	const buffer = Buffer.concat([opCode, byteArray, characterIndex]);
 	buffer.info = {};
 	return buffer;
 }

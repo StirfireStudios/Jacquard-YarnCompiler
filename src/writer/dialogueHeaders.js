@@ -8,25 +8,25 @@ import Write from './streamWriter';
 const StringTableOrder = 	["dialogCharacters", "dialogStrings"]; 
 
 export default async function write(stream) {
-	let offset = 0;
+	this.offset = 0;
 	let length = 0;
  
 	DebugUtils.AddHeader(this.debugData, "Dialogue File Debug Info");
 
 	// Type - Jacquard Dialog
 	length = await Write(stream, "JQRDD");
-	DebugUtils.Add(this.debugData, offset, length, "File Type", "JQRDD".toString(16))
-	offset += length;
+	DebugUtils.Add(this.debugData, this.offset, length, "File Type", "JQRDD".toString(16))
+	this.offset += length;
 
 	// Version
 	length = await Write(stream, BufferUtils.varString(this.version));
-	DebugUtils.Add(this.debugData, offset, length, "Version", this.version);
-	offset += length;
+	DebugUtils.Add(this.debugData, this.offset, length, "Version", this.version);
+	this.offset += length;
 
 	// language
 	length = await Write(stream, BufferUtils.varString(this.language));
-	DebugUtils.Add(this.debugData, offset, length, "Language");
-	offset += length;
+	DebugUtils.Add(this.debugData, this.offset, length, "Language");
+	this.offset += length;
 
 	//StringTables
 	let indexBuffers = [];
@@ -55,10 +55,10 @@ export default async function write(stream) {
 	tableBuffers.push(dialogEntryBuffers);	
 
 	//estimate table offset sizes;
-	let maxOffset = offset;
+	let maxOffset = this.offset;
 	for(let indexBuffer of indexBuffers) maxOffset += indexBuffer.byteLength;
 
-	let tableStartOffset = offset;
+	let tableStartOffset = this.offset;
 	for(let tableBuffer of tableBuffers) {
 		if (tableBuffer.byteLength == 0) {
 			const buffer = BufferUtils.varInt(0);
@@ -87,25 +87,25 @@ export default async function write(stream) {
 			message = `${tableBuffer.name} starts at ${tableStartOffset}`;
 		}
 		length = await Write(stream, buffer);
-		DebugUtils.Add(this.debugData, offset, length, message ,buffer);
-		offset += length;
+		DebugUtils.Add(this.debugData, this.offset, length, message ,buffer);
+		this.offset += length;
 		tableStartOffset += tableBuffer.byteLength;
 	}
 
 	buffer = BufferUtils.fixedInt(tableStartOffset, instructionStartOffsetLength);
 	length = await Write(stream, buffer);
 	DebugUtils.Add(
-		this.debugData, offset, length, 
+		this.debugData, this.offset, length, 
 		`Dialog Instructions start at ${tableStartOffset}`, buffer);
-	offset += length;
+	this.offset += length;
 
 	for(let tableBuffer of tableBuffers) {
 		if (tableBuffer.byteLength === 0) continue; 
 		DebugUtils.AddHeader(this.debugData, `${tableBuffer.name} Table`);
-		DebugUtils.AddTempToMain(this.debugData, tableBuffer.debugData, offset);
+		DebugUtils.AddTempToMain(this.debugData, tableBuffer.debugData, this.offset);
 		for(let buffer of tableBuffer) {
 			length = await Write(stream, buffer);
-			offset += length;
+			this.offset += length;
 		}
 	}	
 }

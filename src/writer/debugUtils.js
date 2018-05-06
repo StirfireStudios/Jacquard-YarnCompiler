@@ -9,11 +9,21 @@ function hexDataFor(buffer) {
 	return "Unknown Type";
 }
 
+export function AddWithLocalOffset(array, globalStart, localStart, length, message, data) {
+	const globalEnd = globalStart + length - 1;
+	const localEnd = localStart + length - 1;
+	let position = `${globalStart} - ${globalEnd} (${localStart}-${localEnd})`;
+	return addWithPosition(array, position, message, data);
+}
+
 export function Add(array, start, length, message, data) {
-	if (array == null) return null;
+	const end = start + length - 1;
+	return addWithPosition(array, `${start} - ${end}`, message, data);
+}
+
+function addWithPosition(array, position, message, data) {
 	const entry = {
-		start: start,
-		position: `${start} - ${start + length - 1}`,
+		position: position, 
 		message: message,
 		hexData: hexDataFor(data),
 	};
