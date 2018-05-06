@@ -16,21 +16,6 @@ export function length(buffer) {
 	}
 }
 
-export function createDebugInfo(buffer, notes, options) {
-	if (options == null) options = {}
-	if (options.hexdata == null) options.hexdata = buffer.toString('hex');
-	const debugInfo = {
-		data: options.hexdata,
-		length: Length(buffer),
-		notes: notes
-	};
-	if (options.start != null) {
-		debugInfo.index = `${options.start} - ${options.start + debugInfo.length}`;
-	}
-
-	return debugInfo;
-}
-
 export function varInt(number) {
 	const byteArray = [0, 0, 0, 0, 0, 0, 0, 0];
 	const negative = number < 0;
@@ -122,31 +107,15 @@ export function fixedInt(number, length) {
 	return buffer;
 }
 
-export function varString(string, writeDebugInfo) {
+export function varString(string) {
 	const uintarray = Buffer.from(string);
 	const lengthBuffer = varInt(uintarray.length);
 	const stringBuffer = Buffer.from(uintarray);
 	const buffer = Buffer.concat([lengthBuffer, stringBuffer]);
-	if (writeDebugInfo) {
-		buffer.debugInfo = [
-			{ 
-				start: 0, 
-				end: lengthBuffer.length - 1,
-				hexdata: lengthBuffer.toString('hex'),
-				notes: `${uintarray.length} byte long utf-8 string`
-			},
-			{
-				start: lengthBuffer.length,
-				end: buffer.length,
-				hexdata: "<STRING>",
-				notes: `"${string}"`
-			}
-		];
-	}
 	return buffer;
 }
 
-export function varBytesFromHexString(hexString, writeDebugInfo) {
+export function varBytesFromHexString(hexString) {
 	const bytes = [];
 	let endIndex = hexString.length;
 	while(endIndex > 0) {
@@ -162,52 +131,10 @@ export function varBytesFromHexString(hexString, writeDebugInfo) {
 	return buffer; 
 }
 
-export function varBytes(bytes, writeDebugInfo) {
+export function varBytes(bytes) {
 	const byteArray = Buffer.from(bytes);
 	const lengthBuffer = varInt(byteArray.length);
 	const buffer = Buffer.concat([lengthBuffer, byteArray]);
-	if (writeDebugInfo) {
-		buffer.debugInfo = [
-			{ 
-				start: 0, 
-				end: lengthBuffer.length - 1,
-				hexdata: lengthBuffer.toString('hex'),
-				notes: `${uintarray.length} byte long byte array`,
-			},
-			{
-				start: lengthBuffer.length,
-				end: buffer.length,
-				hexdata: byteArray.toString('hex'),
-			}			
-		]
-	}
-}
-
-export function stringTable(stringArray, writeDebugInfo) {
-	const buffers = [varInt(stringArray.length)];
-	const debugInfo = [];
-	if (writeDebugInfo) {
-		debugInfo.push({
-			start: 0,
-			end: Length(buffers),
-			hexdata: buffers[0].toString('hex'),
-			notes: `Table is ${stringArray.length} entries long`
-		});
-	}
-	stringArray.forEach(function(string) {
-		const buffer = varString(string, writeDebugInfo);
-		if (writeDebugInfo && buffer.debugInfo != null) {
-			buffer.debugInfo.forEach(function(info) { 
-				info.start = info.start + Length(buffers);
-				info.end = info.end + Length(buffers);
-				debugInfo.push(info);
-			});
-		}
-		buffers.push(buffer);
-	})
-	const outputBuffer = Buffer.concat(buffers);
-	if (writeDebugInfo) { outputBuffer.debugInfo = debugInfo }
-	return outputBuffer;	
 }
 
 export function float32(float) {
