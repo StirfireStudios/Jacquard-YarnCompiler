@@ -114,10 +114,10 @@ try {
   const debugOutputPath = Path.join(config.outputDir, "output.jqrd.debug");
   const sourceMapPath = Path.join(config.outputDir, "output.jqrd.sourcemap");
 
-  const logic = FileIO.OpenFileWriteStream(logicOutputPath);
-  const dialogue = FileIO.OpenFileWriteStream(dialogueOutputPath);
-  const debug = FileIO.OpenFileWriteStream(debugOutputPath);
-  const sourceMap = FileIO.OpenFileWriteStream(sourceMapPath);
+  const logic = FileIO.OpenFileWriteStream(logicOutputPath, 'binary');
+  const dialogue = FileIO.OpenFileWriteStream(dialogueOutputPath, 'binary');
+  const debug = FileIO.OpenFileWriteStream(debugOutputPath, 'utf8');
+  const sourceMap = FileIO.OpenFileWriteStream(sourceMapPath, 'utf8');
 
   let completed = false;
 

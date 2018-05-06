@@ -7,6 +7,7 @@ import * as Pass2 from './pass2';
 import Pass3 from './pass3';
 import Pass4 from './pass4';
 import Pass5 from './pass5';
+import Writer from './writer';
 
 const privateProps = new WeakMap();
 
@@ -115,23 +116,14 @@ export class Compiler {
 	 * @param {stream.Writable} dialogueStream - the "default" language dialogue stream
 	 * @param {stream.Writable} sourceMapStream  - the sourcemap stream (if null, won't be writte)
 	 * @param {stream.Writable} debugStream - the debug stream (if null, won't be written)
-	 * @returns {Promise} - when this is completed;
+	 * @returns {Promise} - when this is completed
 	 */
 	writeBytecode(logicStream, dialogueStream, sourceMapStream, debugStream) {
 		validateWriteStreams(logicStream, dialogueStream, sourceMapStream, debugStream);
-		return new Promise((resolve, reject) => {
-			const state = privateProps.get(this).state;
-			for(let index = 0; index < state.logicCommandBuffers.length; index++) {
-				const command = state.logicCommands[index];
-				const buffer = state.logicCommandBuffers[index];
-	
-			}
-	
-			for(let index = 0; index < state.dialogCommandBuffers.length; index++) {
-			}
-			
-			resolve();
-		});
+		return Writer.call(
+			privateProps.get(this).state, 
+			logicStream, dialogueStream, sourceMapStream, debugStream,
+		);
 	}
 
 	/** Reset the state of this Compiler

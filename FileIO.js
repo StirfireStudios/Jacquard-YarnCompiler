@@ -61,7 +61,6 @@ function OpenFileWriteStream(path, encoding) {
 		autoClose: true
   }  
   const stream = fs.createWriteStream(path, options);
-  stream.cork();
   return stream;
 }
 
