@@ -47,6 +47,18 @@ function checkNodeDefinition(name) {
 	this.addWarning(`${name} already existed, overwriting`);
 }
 
+function validateWriteStreams(logicStream, dialogueStream, sourceMapStream, debugStream) {
+	if (logicStream == null) throw new Error("Logic stream not supplied");
+	if (dialogueStream == null) throw new Error("Dialogue stream not supplied");
+	if (logicStream.write == null) throw new Error("Logic stream not writable");
+	if (dialogueStream.write == null) throw new Error("Dialogue stream not writable");
+	if ((sourceMapStream != null) && (sourceMapStream.write == null))
+		throw new Error("SourceMap stream not writable")
+	if ((debugStream != null) && (debugStream.write == null))
+		throw new Error("Debug stream not writable");
+
+}
+
 /** Instance of this class are used to compile a yarn AST output by the YarnParser
  * @param {CompilerConfig} config the configuration for this compiler
  */
@@ -90,13 +102,36 @@ export class Compiler {
 	 */
 	assemble() {
 		const state = privateProps.get(this).state;
+		if (!state.linkingRequired) return;		
 
 		Pass4(state);
 		Pass5(state);
+		state.linkingRequired = false;
 	}
 
-	writeBytecode(stream, debugStream, sourceMapStream) {
-
+	/**
+ 	 * Write the assembled file out to the supplied streams.
+	 * @param {stream.Writable} logicStream - the logic bytecode stream
+	 * @param {stream.Writable} dialogueStream - the "default" language dialogue stream
+	 * @param {stream.Writable} sourceMapStream  - the sourcemap stream (if null, won't be writte)
+	 * @param {stream.Writable} debugStream - the debug stream (if null, won't be written)
+	 * @returns {Promise} - when this is completed;
+	 */
+	writeBytecode(logicStream, dialogueStream, sourceMapStream, debugStream) {
+		validateWriteStreams(logicStream, dialogueStream, sourceMapStream, debugStream);
+		return new Promise((resolve, reject) => {
+			const state = privateProps.get(this).state;
+			for(let index = 0; index < state.logicCommandBuffers.length; index++) {
+				const command = state.logicCommands[index];
+				const buffer = state.logicCommandBuffers[index];
+	
+			}
+	
+			for(let index = 0; index < state.dialogCommandBuffers.length; index++) {
+			}
+			
+			resolve();
+		});
 	}
 
 	/** Reset the state of this Compiler

@@ -109,22 +109,38 @@ compiler.process(parser);
 compiler.assemble();
 
 try {
-  const compilerOutputPath = Path.join(config.outputDir, "output.jqrd");
+  const logicOutputPath = Path.join(config.outputDir, "output.jqrdl");
+  const dialogueOutputPath = Path.join(config.outputDir, "output.jqrdd");
   const debugOutputPath = Path.join(config.outputDir, "output.jqrd.debug");
   const sourceMapPath = Path.join(config.outputDir, "output.jqrd.sourcemap");
 
-  const bytecode = FileIO.OpenFileWriteStream(compilerOutputPath);
+  const logic = FileIO.OpenFileWriteStream(logicOutputPath);
+  const dialogue = FileIO.OpenFileWriteStream(dialogueOutputPath);
   const debug = FileIO.OpenFileWriteStream(debugOutputPath);
   const sourceMap = FileIO.OpenFileWriteStream(sourceMapPath);
 
-  compiler.writeBytecode(bytecode, debug, sourceMap);
+  let completed = false;
 
-  FileIO.FinishWriteStream(bytecode);
-  FileIO.FinishWriteStream(debug);
-  FileIO.FinishWriteStream(sourceMap);
+  const closeFiles = function() {
+    FileIO.FinishWriteStream(logic);
+    FileIO.FinishWriteStream(dialogue);
+    FileIO.FinishWriteStream(sourceMap);
+    FileIO.FinishWriteStream(debug);
+    completed = true;
+  }
+
+  compiler.writeBytecode(logic, dialogue, sourceMap, debug).then(() => {
+    closeFiles();
+    console.log("Files succesfully compiled and written");
+  }, (error) => {
+    console.error(`Could not write files - ${error}`);
+    closeFiles();
+  });
+
+  const waitLoop = function() {
+    if (!completed) setTimeout(waitLoop, 10);
+  }
+  waitLoop();
 } catch(err) {
   console.error(`Could not write files - ${err}`);
 }
-
-console.log("Files succesfully parsed, compiling");
-
