@@ -134,4 +134,3 @@ export class Compiler {
 }
 
 export {default as Commands} from './commands';
-export {default as CompiledNode} from './compiledNode';
