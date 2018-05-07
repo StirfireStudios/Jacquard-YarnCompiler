@@ -32,7 +32,7 @@ function clearSuffix(command) {
   return msg;
 }
 
-function addDebugInfo(command, buffer, localOffset, length) {
+function addDebugInfo(command, buffer, strings, localOffset, length) {
   let message = "";
   switch(command.type) {
     case Commands.Names.Noop: 
@@ -74,7 +74,7 @@ function addDebugInfo(command, buffer, localOffset, length) {
       message = `Load a false onto argument stack`;
       break;
     case Commands.Names.StaticString:
-      message = `Load the string at index ${command.arg0} argument stack`;
+      message = `Load the string at index ${command.arg0} ("${strings[command.arg0]}") argument stack`;
       break;
     case Commands.Names.StaticFloat:
       message = `Load the float ${command.arg0} argument stack`;
@@ -134,13 +134,13 @@ function addDebugInfo(command, buffer, localOffset, length) {
   DebugUtils.AddWithLocalOffset(this.debugData, this.offset, localOffset, length, message, buffer);
 }
 
-export default async function writeCommands(stream, commands, buffers, sourceMapType) {
+export default async function writeCommands(stream, commands, buffers, strings, sourceMapType) {
   let localOffset = 0;
   for(let index = 0; index < commands.length; index++) {
     const command = commands[index];
     const buffer = buffers[index];
     const length = await Write(stream, buffer);
-    if (this.debugData != null) addDebugInfo.call(this, command, buffer, localOffset, length);
+    if (this.debugData != null) addDebugInfo.call(this, command, buffer, strings, localOffset, length);
     if (this.sourceMapData != null) addSourceMapData(this.sourceMapData, sourceMapType, localOffset, command);
     this.offset += length;
     localOffset += length;
