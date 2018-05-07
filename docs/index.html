@@ -1,0 +1,3122 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>jacquard-yarncompiler 0.1.0 | Documentation</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
+  <link href='assets/style.css' type='text/css' rel='stylesheet' />
+  <link href='assets/github.css' type='text/css' rel='stylesheet' />
+  <link href='assets/split.css' type='text/css' rel='stylesheet' />
+</head>
+<body class='documentation m0'>
+    <div class='flex'>
+      <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
+        <div class='py1 px2'>
+          <h3 class='mb0 no-anchor'>jacquard-yarncompiler</h3>
+          <div class='mb1'><code>0.1.0</code></div>
+          <input
+            placeholder='Filter'
+            id='filter-input'
+            class='col12 block input'
+            type='text' />
+          <div id='toc'>
+            <ul class='list-reset h5 py1-ul'>
+              
+                
+                <li><a
+                  href='#basic-usage'
+                  class="h5 bold black caps">
+                  Basic usage
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#compiler'
+                  class=" toggle-sibling">
+                  Compiler
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  
+                    <ul class='list-reset py1-ul pl1'>
+                      <li class='h5'><span>Instance members</span></li>
+                      
+                      <li><a
+                        href='#compilerprocess'
+                        class='regular pre-open'>
+                        #process
+                      </a></li>
+                      
+                      <li><a
+                        href='#compilerassemble'
+                        class='regular pre-open'>
+                        #assemble
+                      </a></li>
+                      
+                      <li><a
+                        href='#compilerwritebytecode'
+                        class='regular pre-open'>
+                        #writeBytecode
+                      </a></li>
+                      
+                      <li><a
+                        href='#compilerreset'
+                        class='regular pre-open'>
+                        #reset
+                      </a></li>
+                      
+                    </ul>
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#compilerconfig'
+                  class=" toggle-sibling">
+                  CompilerConfig
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#compilerconfigerrorifnodeundefined'
+                        class='regular pre-open'>
+                        .errorIfNodeUndefined
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#commands'
+                  class="h5 bold black caps">
+                  Commands
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#byname'
+                  class=" toggle-sibling">
+                  ByName
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#bynamenoop'
+                        class='regular pre-open'>
+                        .Noop
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynameshowtext'
+                        class='regular pre-open'>
+                        .ShowText
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynameruncommand'
+                        class='regular pre-open'>
+                        .RunCommand
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynameshowdialogblock'
+                        class='regular pre-open'>
+                        .ShowDialogBlock
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamedialogblockend'
+                        class='regular pre-open'>
+                        .DialogBlockEnd
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamenodeentry'
+                        class='regular pre-open'>
+                        .NodeEntry
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamejump'
+                        class='regular pre-open'>
+                        .Jump
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamejumpiftrue'
+                        class='regular pre-open'>
+                        .JumpIfTrue
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamejumpiffalse'
+                        class='regular pre-open'>
+                        .JumpIfFalse
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamevariableload'
+                        class='regular pre-open'>
+                        .VariableLoad
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamevariableset'
+                        class='regular pre-open'>
+                        .VariableSet
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamestaticnull'
+                        class='regular pre-open'>
+                        .StaticNull
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamestatictrue'
+                        class='regular pre-open'>
+                        .StaticTrue
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamestaticfalse'
+                        class='regular pre-open'>
+                        .StaticFalse
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamestaticstring'
+                        class='regular pre-open'>
+                        .StaticString
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamestaticfloat'
+                        class='regular pre-open'>
+                        .StaticFloat
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamestaticinteger'
+                        class='regular pre-open'>
+                        .StaticInteger
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynameadd'
+                        class='regular pre-open'>
+                        .Add
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamesubtract'
+                        class='regular pre-open'>
+                        .Subtract
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamemultiply'
+                        class='regular pre-open'>
+                        .Multiply
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamedivide'
+                        class='regular pre-open'>
+                        .Divide
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamemodulus'
+                        class='regular pre-open'>
+                        .Modulus
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynameequal'
+                        class='regular pre-open'>
+                        .Equal
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamenot'
+                        class='regular pre-open'>
+                        .Not
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynameand'
+                        class='regular pre-open'>
+                        .And
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynameor'
+                        class='regular pre-open'>
+                        .Or
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamexor'
+                        class='regular pre-open'>
+                        .Xor
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamegreaterthan'
+                        class='regular pre-open'>
+                        .GreaterThan
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamelessthan'
+                        class='regular pre-open'>
+                        .LessThan
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamefunctionreturn'
+                        class='regular pre-open'>
+                        .FunctionReturn
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamefunctionnoreturn'
+                        class='regular pre-open'>
+                        .FunctionNoReturn
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamepushoption'
+                        class='regular pre-open'>
+                        .PushOption
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamerunoptions'
+                        class='regular pre-open'>
+                        .RunOptions
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamecleararguments'
+                        class='regular pre-open'>
+                        .ClearArguments
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynameclearoptionstack'
+                        class='regular pre-open'>
+                        .ClearOptionStack
+                      </a></li>
+                    
+                      <li><a
+                        href='#bynamestartoptions'
+                        class='regular pre-open'>
+                        .StartOptions
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#byopcode'
+                  class="">
+                  ByOpcode
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#internal-api-documentation'
+                  class="h5 bold black caps">
+                  Internal API documentation
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setupprivates'
+                  class="">
+                  SetupPrivates
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#pass1'
+                  class="">
+                  Pass1
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#add'
+                  class="">
+                  add
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#pass4'
+                  class="">
+                  Pass4
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#pass5'
+                  class="">
+                  Pass5
+                  
+                </a>
+                
+                </li>
+              
+            </ul>
+          </div>
+          <div class='mt1 h6 quiet'>
+            <a href='http://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
+          </div>
+        </div>
+      </div>
+      <div id='split-right' class='relative overflow-auto height-viewport-100'>
+        
+          
+            <div class='keyline-top-not py2'><section class='py2 clearfix'>
+
+  <h2 id='basic-usage' class='mt0'>
+    Basic usage
+  </h2>
+
+  
+    
+
+  
+</section>
+</div>
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='compiler'>
+      Compiler
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Instance of this class are used to compile a yarn AST output by the YarnParser</p>
+
+
+  <div class='pre p1 fill-light mt0'>new Compiler(config: <a href="#compilerconfig">CompilerConfig</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>config</span> <code class='quiet'>(<a href="#compilerconfig">CompilerConfig</a>)</code>
+	    the configuration for this compiler
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='compilerprocess'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>process(yarnParser)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>process the AST currently in the specified YarnParser</p>
+
+
+  <div class='pre p1 fill-light mt0'>process(yarnParser: YarnParser): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>yarnParser</span> <code class='quiet'>(YarnParser)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>:
+        if there was an error processing the nodes in this yarnparser
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='compilerassemble'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>assemble()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Link and finalize assembly of the bytecode ready for writing.
+(Passes 4, 5 and 6)</p>
+
+
+  <div class='pre p1 fill-light mt0'>assemble()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='compilerwritebytecode'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>writeBytecode(logicStream, dialogueStream, sourceMapStream, debugStream)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Write the assembled file out to the supplied streams.</p>
+
+
+  <div class='pre p1 fill-light mt0'>writeBytecode(logicStream: <a href="https://nodejs.org/api/stream.html#stream_class_stream_writable">stream.Writable</a>, dialogueStream: <a href="https://nodejs.org/api/stream.html#stream_class_stream_writable">stream.Writable</a>, sourceMapStream: <a href="https://nodejs.org/api/stream.html#stream_class_stream_writable">stream.Writable</a>, debugStream: <a href="https://nodejs.org/api/stream.html#stream_class_stream_writable">stream.Writable</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>logicStream</span> <code class='quiet'>(<a href="https://nodejs.org/api/stream.html#stream_class_stream_writable">stream.Writable</a>)</code>
+	    the logic bytecode stream
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>dialogueStream</span> <code class='quiet'>(<a href="https://nodejs.org/api/stream.html#stream_class_stream_writable">stream.Writable</a>)</code>
+	    the "default" language dialogue stream
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceMapStream</span> <code class='quiet'>(<a href="https://nodejs.org/api/stream.html#stream_class_stream_writable">stream.Writable</a>)</code>
+	    the sourcemap stream (if null, won't be writte)
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>debugStream</span> <code class='quiet'>(<a href="https://nodejs.org/api/stream.html#stream_class_stream_writable">stream.Writable</a>)</code>
+	    the debug stream (if null, won't be written)
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
+        when this is completed
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='compilerreset'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>reset()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Reset the state of this Compiler</p>
+
+
+  <div class='pre p1 fill-light mt0'>reset()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='compilerconfig'>
+      CompilerConfig
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Compiler configuration</p>
+
+
+  <div class='pre p1 fill-light mt0'>new CompilerConfig()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='compilerconfigerrorifnodeundefined'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>errorIfNodeUndefined</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Should the compiler insert a debug node if an unknown node was linked to.
+Defaults to true</p>
+
+
+  <div class='pre p1 fill-light mt0'>errorIfNodeUndefined</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <div class='keyline-top-not py2'><section class='py2 clearfix'>
+
+  <h2 id='commands' class='mt0'>
+    Commands
+  </h2>
+
+  
+    
+
+  
+</section>
+</div>
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='byname'>
+      ByName
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Command types by name (constant is the opcode in octal)</p>
+
+
+  <div class='pre p1 fill-light mt0'>ByName</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='bynamenoop'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Noop</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Do nothing.
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+No parameters</p>
+
+
+  <div class='pre p1 fill-light mt0'>Noop</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynameshowtext'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>ShowText</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Display the last X arguments on the stack.
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+No parameters.</p>
+
+
+  <div class='pre p1 fill-light mt0'>ShowText</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynameruncommand'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>RunCommand</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Pass the the last X arguments on the stack to the engine as a message
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+No parameters.</p>
+
+
+  <div class='pre p1 fill-light mt0'>RunCommand</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynameshowdialogblock'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>ShowDialogBlock</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Display the given dialog block
+This is a valid Logic File instruction.
+0 - (varBytes) - the dialog block reference in the Dialog File
+1 - (varInt) - the character reference in the Dialog File (or -1 if no character)</p>
+
+
+  <div class='pre p1 fill-light mt0'>ShowDialogBlock</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamedialogblockend'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>DialogBlockEnd</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>End the Dialog Block
+This is a valid Dialog File instruction.
+No parameters.</p>
+
+
+  <div class='pre p1 fill-light mt0'>DialogBlockEnd</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamenodeentry'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>NodeEntry</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Enter the node
+This is a valid Logic File instruction.
+0 - (varInt) nodetable index of the node we are entering.</p>
+
+
+  <div class='pre p1 fill-light mt0'>NodeEntry</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamejump'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Jump</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Jump to another instruction
+This is a valid Logic File instruction.
+0 - (varInt) byte offset of the instruction list to jump to</p>
+
+
+  <div class='pre p1 fill-light mt0'>Jump</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamejumpiftrue'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>JumpIfTrue</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Jump to another instruction if the last stack value is true.
+Remove the top argument on the stack regardless.
+This is a valid Logic File instruction.
+0 - (varInt) byte offset of the instruction list to jump to</p>
+
+
+  <div class='pre p1 fill-light mt0'>JumpIfTrue</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamejumpiffalse'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>JumpIfFalse</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Jump to another instruction if the last stack value is false
+Remove the top argument on the stack regardless.
+This is a valid Logic File instruction.
+0 - (varInt) byte offset of the instruction list to jump to</p>
+
+
+  <div class='pre p1 fill-light mt0'>JumpIfFalse</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamevariableload'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>VariableLoad</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Load the variable at the index specified onto the stack
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (varInt) variabletable index</p>
+
+
+  <div class='pre p1 fill-light mt0'>VariableLoad</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamevariableset'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>VariableSet</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Save the last stack value to the specified variable
+This is a valid Logic File instruction.
+0 - (varInt) variabletable index</p>
+
+
+  <div class='pre p1 fill-light mt0'>VariableSet</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamestaticnull'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>StaticNull</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Load a null onto the stack
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+No parameters.</p>
+
+
+  <div class='pre p1 fill-light mt0'>StaticNull</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamestatictrue'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>StaticTrue</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Load a true onto the stack
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+No parameters.</p>
+
+
+  <div class='pre p1 fill-light mt0'>StaticTrue</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamestaticfalse'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>StaticFalse</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Load a false onto the stack
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+No parameters.</p>
+
+
+  <div class='pre p1 fill-light mt0'>StaticFalse</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamestaticstring'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>StaticString</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Load a string onto the stack
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (varInt) String Table index</p>
+
+
+  <div class='pre p1 fill-light mt0'>StaticString</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamestaticfloat'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>StaticFloat</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Load a float onto the stack
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (float) the float</p>
+
+
+  <div class='pre p1 fill-light mt0'>StaticFloat</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamestaticinteger'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>StaticInteger</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Load an integer onto the stack
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (varInt) the integer</p>
+
+
+  <div class='pre p1 fill-light mt0'>StaticInteger</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynameadd'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Add</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Use the specified stack values, add them and push the result onto the stack
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (StackOffset) the left argument
+1 - (StackOffset) the right argument</p>
+
+
+  <div class='pre p1 fill-light mt0'>Add</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamesubtract'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Subtract</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Use the specified stack values, subtract them and push the result onto the stack
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (StackOffset) the left argument
+1 - (StackOffset) the right argument</p>
+
+
+  <div class='pre p1 fill-light mt0'>Subtract</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamemultiply'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Multiply</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Use the specified stack values, multiply them and push the result onto the stack
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (StackOffset) the left argument
+1 - (StackOffset) the right argument</p>
+
+
+  <div class='pre p1 fill-light mt0'>Multiply</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamedivide'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Divide</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Use the specified stack values, divide the oldest by the newest and push the result onto the stack
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (StackOffset) the left argument
+1 - (StackOffset) the right argument</p>
+
+
+  <div class='pre p1 fill-light mt0'>Divide</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamemodulus'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Modulus</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Use the specified stack values, return the oldest mod'ed by the newest and push the result onto the stack
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (StackOffset) the left argument
+1 - (StackOffset) the right argument</p>
+
+
+  <div class='pre p1 fill-light mt0'>Modulus</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynameequal'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Equal</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>UUse the specified stack values, push true on the stack if they are equal, false otherwise
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (StackOffset) the left argument
+1 - (StackOffset) the right argument</p>
+
+
+  <div class='pre p1 fill-light mt0'>Equal</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamenot'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Not</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Use the specified stack value and push the not value of it onto the stak
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (StackOffset) the argument</p>
+
+
+  <div class='pre p1 fill-light mt0'>Not</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynameand'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>And</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Use the specified stack values, push the AND result onto the stack
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (StackOffset) the left argument
+1 - (StackOffset) the right argument</p>
+
+
+  <div class='pre p1 fill-light mt0'>And</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynameor'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Or</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Use the specified stack values, push the OR result onto the stack
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (StackOffset) the left argument
+1 - (StackOffset) the right argument</p>
+
+
+  <div class='pre p1 fill-light mt0'>Or</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamexor'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Xor</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Use the specified stack values, push the OR result onto the stack
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (StackOffset) the left argument
+1 - (StackOffset) the right argument</p>
+
+
+  <div class='pre p1 fill-light mt0'>Xor</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamegreaterthan'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>GreaterThan</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Use the specified stack values, push true if the older is greater than the newer onto the stack, false otherwise
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (StackOffset) the left argument
+1 - (StackOffset) the right argument</p>
+
+
+  <div class='pre p1 fill-light mt0'>GreaterThan</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamelessthan'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>LessThan</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Use the specified stack values, push true if the older is less than the newer onto the stack, false otherwise
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (StackOffset) the left argument
+1 - (StackOffset) the right argument</p>
+
+
+  <div class='pre p1 fill-light mt0'>LessThan</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamefunctionreturn'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>FunctionReturn</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Use the specified stack values, run the specified function and push the result onto the stack.
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (varInt) functiontable index of the function to run
+1 - (byte) the number of arguments to reference
+2..n - (StackOffset) - the argument stack offset</p>
+
+
+  <div class='pre p1 fill-light mt0'>FunctionReturn</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamefunctionnoreturn'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>FunctionNoReturn</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Use the specified stack values, run the specified function. Result is discarded.
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (varInt) functiontable index of the function to run
+1 - (byte) the number of arguments to reference
+2..n - (StackOffset) - the argument stack offset</p>
+
+
+  <div class='pre p1 fill-light mt0'>FunctionNoReturn</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamepushoption'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>PushOption</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Add another option to the option stack.
+This is a valid Logic File instruction.
+0 - (varInt) byte offset of the instruction after this option's instructions</p>
+
+
+  <div class='pre p1 fill-light mt0'>PushOption</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamerunoptions'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>RunOptions</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Run all the options on the stack. (Should clear the option stack)
+This is a valid Logic File instruction.
+No Parameters.</p>
+
+
+  <div class='pre p1 fill-light mt0'>RunOptions</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamecleararguments'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>ClearArguments</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Clear the top (arg1) values starting from arg0 off the argument stack, or to the end (if arg1 is 255)
+This is a valid Logic File instruction.
+This is a valid Dialog File instruction.
+0 - (bytes) the index to start clearing from the stack (top is 0)
+1 - (bytes) the number of values to clear from the stack. If this is 255, clear to the end.</p>
+
+
+  <div class='pre p1 fill-light mt0'>ClearArguments</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynameclearoptionstack'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>ClearOptionStack</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Clear the top (arg1) values starting from arg0 off the option stack, or the end (if arg1 is 255)
+This is a valid Logic File instruction.
+0 - (bytes) the index to start clearing from the stack (top is 0)
+1 - (bytes) the number of values to remove from the stack, If this is 255, clear to the end.</p>
+
+
+  <div class='pre p1 fill-light mt0'>ClearOptionStack</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bynamestartoptions'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>StartOptions</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>We're starting an options list here. The options list should be clear. This is for debug only.
+At some point this will be removed.
+This is a valid Logic File instruction.
+No parameters.</p>
+
+
+  <div class='pre p1 fill-light mt0'>StartOptions</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='byopcode'>
+      ByOpcode
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Command types by name (constant is the opcode in octal)</p>
+
+
+  <div class='pre p1 fill-light mt0'>ByOpcode</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <div class='keyline-top-not py2'><section class='py2 clearfix'>
+
+  <h2 id='internal-api-documentation' class='mt0'>
+    Internal API documentation
+  </h2>
+
+  
+    
+
+  
+</section>
+</div>
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setupprivates'>
+      SetupPrivates
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Create a new private field store</p>
+
+
+  <div class='pre p1 fill-light mt0'>new SetupPrivates(defaults: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, any>, attrs: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, any>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, any></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>defaults</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, any>)</code>
+	    The defaults that this class instance has
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>attrs</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, any>)</code>
+	    Object containing values that override the defaults
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, any></code>:
+        an object that is the private variables with new instances of any non-overridden values
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='pass1'>
+      Pass1
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This Handles pass 1 compiling which just unrolls all the nested statements
+into a continous list of commands.
+Jump instructions are either referencing command indexes or node names
+function, variable and string references are still referencing the names.
+This is desiggned to run on one node at a time.</p>
+
+
+  <div class='pre p1 fill-light mt0'>new Pass1(node: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>node</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='add'>
+      add
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This Handles pass 2 compiling which concatenates all the nodes into one long list
+and builds the start of the node table (for the logic file) and dialog table (for the dialog file)</p>
+
+
+  <div class='pre p1 fill-light mt0'>add(state: any, pass1Output: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>state</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>pass1Output</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='pass4'>
+      Pass4
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This pass converts all the commands into bytecode.
+It includes the lengths of all non-jump instructions
+Jump instructions lengths are set at the maximum possible size of the instructions</p>
+
+
+  <div class='pre p1 fill-light mt0'>new Pass4(state: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>state</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='pass5'>
+      Pass5
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Calculate size of jump addresses now we know the rough locations of everything</p>
+
+
+  <div class='pre p1 fill-light mt0'>new Pass5(state: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>state</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+      </div>
+    </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/split.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>
