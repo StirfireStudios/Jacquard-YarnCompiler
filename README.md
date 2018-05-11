@@ -6,6 +6,8 @@ This compiles Yarn syntax (with help of the [yarn parser](https://github.com/Sti
 
 Install `jacquard-yarncompiler` via your favourite javascript package tool.
 
+API Docs are [here](https://stirfirestudios.github.io/Jacquard-YarnCompiler/)
+
 ## Bytecode file formats
 
 Current version is `0.1.0`
@@ -99,7 +101,7 @@ This is a large bucket of bytes that is back-to-back opcodes and opcode argument
 
 ### Opcodes
 
-Documented [here](https://github.com/StirfireStudios/Jacquard-YarnCompiler/blob/master/src/commands/index.js#L9)
+Documented [here](https://github.com/StirfireStudios/Jacquard-YarnCompiler/blob/master/src/commands.js#L9)
 
 Opcodes are variable length - the opcode itself is always one byte, but the arguments may be more. Types are listed above
 
