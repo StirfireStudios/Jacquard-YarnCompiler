@@ -22,7 +22,8 @@ export default function handler(optionStatement) {
 	});
 	DialogSegments.AddToCurrent(this, {
 		type: Commands.Names.ClearArguments,
-		arg0: 1,
+		arg0: 0,
+		arg1: 255,
 		location: optionStatement.location,
 	});
 	DialogSegments.FinishCurrent(this);
