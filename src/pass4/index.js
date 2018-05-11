@@ -56,7 +56,6 @@ export default function Pass4(state) {
 				break;
 			// these all take one argument that is a Byte (or StackOffset)
 			case Commands.Names.Not:
-			case Commands.Names.ClearArguments:
 				encodedCommand = Encode.Byte.call(state, command);
 				break;
 			// Functions

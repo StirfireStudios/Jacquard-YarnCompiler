@@ -13,12 +13,12 @@ export default function handler(statement) {
 	});
   list.push({
 		type: Commands.Names.RunCommand,
-		arg0: statement.arguments.length,
 		location: statement.location,
 	});
   list.push({
-    type: Commands.Names.ClearArguments,
-		arg0: statement.arguments.length,
+		type: Commands.Names.ClearArguments,
+		arg0: 0,
+		arg1: 255,
 		location: statement.location,
 	});
 }

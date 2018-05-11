@@ -15,7 +15,8 @@ export default function handler(statement) {
 	});
 	DialogSegments.AddToCurrent(this, {
 		type: Commands.Names.ClearArguments,
-		arg0: 1,
+		arg0: 0,
+		arg1: 255,
 		location: statement.location,
 	});
 }
