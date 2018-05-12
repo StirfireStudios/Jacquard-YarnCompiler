@@ -16,6 +16,7 @@ function insertStartNode() {
 function handleCommand(command, dialogSegments) {
 	const copiedCommand = Object.assign({}, command);
 	switch(copiedCommand.type) {
+		case Commands.Names.PushOption:
 		case Commands.Names.Jump:
 		case Commands.Names.JumpIfTrue:
 		case Commands.Names.JumpIfFalse:
