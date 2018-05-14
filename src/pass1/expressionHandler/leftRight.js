@@ -57,25 +57,25 @@ export default function handle(expression) {
 			leftRightAndClean(list, expression, Commands.Names.LessThan, 0);
 			break;
 		case Expression.OrOperator:
-			leftRightAndClean(list, expression, Commands.Names.And, 0);
+			leftRightAndClean(list, expression, Commands.Names.Or, 0);
 			break;
 		case Expression.XorOperator:
-			leftRightAndClean(list, expression, Commands.Names.And, 0);
+			leftRightAndClean(list, expression, Commands.Names.Xor, 0);
 			break;
 		case Expression.AddOperator:
-			leftRightAndClean(list, expression, Commands.Names.And, 0);
+			leftRightAndClean(list, expression, Commands.Names.Add, 0);
 			break;
 		case Expression.SubtractOperator: 
-			leftRightAndClean(list, expression, Commands.Names.And, 0);
+			leftRightAndClean(list, expression, Commands.Names.Subtract, 0);
 			break;
 		case Expression.DivideOperator: 
-			leftRightAndClean(list, expression, Commands.Names.And, 0);
+			leftRightAndClean(list, expression, Commands.Names.Divide, 0);
 			break;
 		case Expression.MultiplyOperator: 
-			leftRightAndClean(list, expression, Commands.Names.And, 0);
+			leftRightAndClean(list, expression, Commands.Names.Multiply, 0);
 			break;		
 		case Expression.ModulusOperator:
-			leftRightAndClean(list, expression, Commands.Names.And, 0);
+			leftRightAndClean(list, expression, Commands.Names.Modulus, 0);
 			break;
 		// special cases
 		case Expression.GreaterThanOrEqualOperator:

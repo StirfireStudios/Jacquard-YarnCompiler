@@ -10,7 +10,13 @@ function insertStartNode() {
 	this.logicCommands.push({
 		type: Commands.Names.NodeEntry,
 		arg0: this.currentNode.tableIndex,
-	})
+	});
+}
+
+function insertEndNode() {
+	this.logicCommands.push({
+		type: Commands.Names.StopExecution,
+	});
 }
 
 function handleCommand(command, dialogSegments) {
@@ -58,6 +64,8 @@ export function add(state, pass1Output) {
 	pass1Output.logicCommands.forEach(command => {
 		handleCommand.call(state, command, pass1Output.dialogSegments);
 	});
+
+	insertEndNode.call(state);
 }
 
 export function finish(state) {

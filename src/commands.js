@@ -75,6 +75,7 @@ export const byName = {
 	 * @memberof ByName
 	 */
 	JumpIfFalse: "203",
+
 	// Operators
 	/** Load the variable at the index specified onto the stack
 	 * Octal: 20, Decimal: 16, Hex: 10
@@ -282,7 +283,6 @@ export const byName = {
 	 * @memberof ByName
 	 */
 	RunOptions: "51",
-	
 	/** Clear the top (arg1) values starting from arg0 off the argument stack, or to the end (if arg1 is 255) 
 	 * Octal: 375, Decimal: 253, Hex: FD
    * This is a valid Logic File instruction. 
@@ -300,14 +300,14 @@ export const byName = {
 	 * @memberof ByName
 	 */
 	ClearOptionStack: "376",
-	/** We're starting an options list here. The options list should be clear. This is for debug only.
+	/** Stop execution.
 	 * Octal:377, Decimal: 255, Hex: FF
 	 * At some point this will be removed.
  	 * This is a valid Logic File instruction.
 	 * No parameters.
 	 * @memberof ByName
 	 */
-	StartOptions: "377",
+	StopExecution: "377",
 };
 
 const byOpcode = {};
