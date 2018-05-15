@@ -125,8 +125,8 @@ function addDebugInfo(command, buffer, strings, localOffset, length) {
     case Commands.Names.ClearOptionStack:
       message = `Clear options off the stack ${clearSuffix(command)}`;
       break;
-    case Commands.Names.StartOptions:
-      message = "Starting a new option list. Option list should be empty";
+    case Commands.Names.StopExecution:
+      message = "Halt exection of the runtime, don't allow it to proceed unless the IP is moved.";
       break;
     default:
       message = "Unknown command!";

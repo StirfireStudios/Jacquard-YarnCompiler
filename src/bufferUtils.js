@@ -41,10 +41,6 @@ export function varInt(number) {
 		if (byteArray[i] != 0) break;
 		length--;
 	}
-	
-	if (length < 1) length = 1;
-	if (length > 2 && length < 4) length = 4;
-	if (length > 4) length = 8; 
 
 	const buffer = Buffer.alloc(length + 1);
 	if (negative) {

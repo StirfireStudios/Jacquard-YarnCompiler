@@ -61,7 +61,7 @@ A Varbytes where the Bytes value represents an UTF-8 encoded string value.
 
 The logic file contains the general graph flow and expressions. Text that is to be displayed on screen is not in this file as that needs localization.
 
-  - ASCII "JQRDL" - denoting file type (should take 4 bytes)
+  - ASCII "JQRDL" - denoting file type (should take 5 bytes)
   - Version (`VarString`) - the bytecode version.
   - Function Table Index (`VarInt`) - Offset (in entire file) of where the function table starts (or 0 if it doesn't exist)
   - Character Table Index (`VarInt`) - Offset (in entire file) of where the character table starts (or 0 if it doesn't exist)

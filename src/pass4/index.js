@@ -21,7 +21,7 @@ export default function Pass4(state) {
 			case Commands.Names.StaticTrue:
 			case Commands.Names.StaticFalse:
 			case Commands.Names.RunOptions:
-			case Commands.Names.StartOptions:
+			case Commands.Names.StopExecution:
 				encodedCommand = Encode.NoArg.call(state, command);
 				break;
 			// these have arg0's that are indexes.
@@ -99,6 +99,7 @@ export default function Pass4(state) {
 				case Commands.Names.StaticNull:
 				case Commands.Names.StaticTrue:
 				case Commands.Names.StaticFalse:
+				case Commands.Names.StopExecution:
 					encodedCommand = Encode.NoArg.call(state, command);
 					break;
 				// these take a varInt
