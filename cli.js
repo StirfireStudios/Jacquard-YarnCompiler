@@ -108,6 +108,18 @@ compiler = new YarnCompiler({sourceMap: true, debug: true});
 compiler.process(parser);
 compiler.assemble();
 
+let completed = false;
+
+/*compiler.writeBuffers(true, true)
+.then((bufferObj) => {
+  completed = true;
+});
+
+const waitLoop = function() {
+  if (!completed) setTimeout(waitLoop, 10);
+}
+waitLoop();*/
+
 try {
   const logicOutputPath = Path.join(config.outputDir, "output.jqrdl");
   const dialogueOutputPath = Path.join(config.outputDir, "output.jqrdd");
@@ -118,8 +130,6 @@ try {
   const dialogue = FileIO.OpenFileWriteStream(dialogueOutputPath, 'binary');
   const debug = FileIO.OpenFileWriteStream(debugOutputPath, 'utf8');
   const sourceMap = FileIO.OpenFileWriteStream(sourceMapPath, 'utf8');
-
-  let completed = false;
 
   const closeFiles = function() {
     FileIO.FinishWriteStream(logic);
