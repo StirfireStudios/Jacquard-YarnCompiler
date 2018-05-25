@@ -8,31 +8,20 @@ import writeDialogueHeaders from './dialogueHeaders';
 import writeLogicHeaders from './logicHeaders';
 import * as DebugUtils from './debugUtils';
 
-function writeLogicBuffers(stream) {
-	for(let index = 0; index < this.logicCommandBuffers.length; index++) {
-		const command = this.logicCommands[index];
-		const buffer = this.logicCommandBuffers[index];
-
+function createState(state) {
+	return {
+		sourceMapData: null,
+		debugData: null,
+		version: VERSION, 
+		language: Language,
+		state: state,			
+		offset: 0,
 	}
 }
 
-function writeDialogBuffers(stream, sourceMap, debugStream) {
-	for(let index = 0; index < this.dialogCommandBuffers.length; index++) {
-		const buffer = this.dialogCommandBuffers[index];
-		
-	}
-}
-
-export default function write(logicStream, dialogueStream, sourceMapStream, debugStream) {	
+export function Stream(logicStream, dialogueStream, sourceMapStream, debugStream) {	
 	return new Promise((resolve, reject) => {
-		const state = {
-			sourceMapData: null,
-			debugData: null,
-			version: VERSION, 
-			language: Language,
-			state: this,			
-			offset: 0,
-		}
+		const state = createState(this);
 		if (sourceMapStream != null) state.sourceMapData = {logic: [], dialog:[] };
 		if (debugStream != null) state.debugData = [];
 
@@ -66,4 +55,46 @@ export default function write(logicStream, dialogueStream, sourceMapStream, debu
 		})
 		.then(() => { resolve();});
 	});	
+}
+
+export function Buffers(includeSourceMap, includeDebug) {
+	return new Promise((resolve, reject) => {
+		const state = createState(this);
+		if (includeSourceMap) state.sourceMapData = {logic: [], dialog:[] };
+		if (includeDebug) state.debugData = [];
+
+		const logicBuffers = [];
+		const dialogueBuffers = [];
+		const debugBuffers = [];
+
+		DebugUtils.AddHeader(state.debugData, "Logic File Begin");
+		writeLogicHeaders.call(state, logicBuffers)
+		.then(() => {
+			DebugUtils.AddHeader(state.debugData, "Logic Instruction Block");
+			return writeCommands.call(state, 
+				logicBuffers, this.logicCommands, this.logicCommandBuffers, this.strings, "logic",
+			);
+		})
+		.then(() => { 
+			DebugUtils.AddHeader(state.debugData, "Default Dialogue File Begin");
+			return writeDialogueHeaders.call(state, dialogueBuffers);
+		})
+		.then(() => { 
+			DebugUtils.AddHeader(state.debugData, "Dialogue Instruction Block");
+			return writeCommands.call(state,
+				dialogueBuffers, this.dialogCommands, this.dialogCommandBuffers, this.dialogStrings, "dialog",
+			);
+		})
+		.then(() => {
+			if (includeDebug) {
+				return DebugUtils.Write(state.debugData, debugBuffers);
+			}
+		})		
+		.then(() => { resolve({
+			logic: Buffer.concat(logicBuffers),
+			dialogue: Buffer.concat(dialogueBuffers),
+			sourceMapStream: JSON.stringify(state.sourceMapData),
+			debugStream: includeDebug ? Buffer.concat(debugBuffers).toString() : null,
+		});});
+	});
 }

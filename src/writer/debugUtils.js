@@ -10,18 +10,21 @@ function hexDataFor(buffer) {
 }
 
 export function AddWithLocalOffset(array, globalStart, localStart, length, message, data) {
-	const globalEnd = globalStart + length - 1;
+	if (array == null) return;
+ 	const globalEnd = globalStart + length - 1;
 	const localEnd = localStart + length - 1;
 	let position = `${globalStart} - ${globalEnd} (${localStart}-${localEnd})`;
 	return addWithPosition(array, position, message, data);
 }
 
 export function Add(array, start, length, message, data) {
+	if (array == null) return;
 	const end = start + length - 1;
 	return addWithPosition(array, `${start} - ${end}`, message, data);
 }
 
 function addWithPosition(array, position, message, data) {
+	if (array == null) return;
 	const entry = {
 		position: position, 
 		message: message,
@@ -56,6 +59,7 @@ export function SetLength(debugEntry, newLength) {
 }
 
 export function AddTempToMain(array, tempArray, startOffset) {
+	if (array == null) return;
 	for(let entry of tempArray) {
 		if (entry.header != null) {
 			array.push(tempArray);
@@ -72,12 +76,14 @@ export function AddTempToMain(array, tempArray, startOffset) {
 }
 
 export function AddHeader(array, header) {
+	if (array == null) return;
 	array.push({
 		header: header,
 	});
 }
 
 export async function Write(array, stream) {
+	if (array == null) return;
 	const headers = [
 		"Absolute Position",
 		"Hex Data",

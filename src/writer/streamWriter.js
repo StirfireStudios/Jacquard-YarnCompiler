@@ -10,12 +10,17 @@ export default function write(stream, buffer) {
 	const length = getLength(buffer);
 
 	return new Promise((resolve, reject) => {
-		let ok = true;
-		ok = stream.write(buffer);
-		if (ok) {
+		if (Array.isArray(stream)) {
+			stream.push(Buffer.from(buffer));
 			resolve(length);
 		} else {
-			stream.once('drain', resolve.bind(null, length));
+			let ok = true;
+			ok = stream.write(buffer);
+			if (ok) {
+				resolve(length);
+			} else {
+				stream.once('drain', resolve.bind(null, length));
+			}
 		}
 	});
 }

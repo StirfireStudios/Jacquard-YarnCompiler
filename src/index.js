@@ -7,7 +7,7 @@ import * as Pass2 from './pass2';
 import Pass3 from './pass3';
 import Pass4 from './pass4';
 import Pass5 from './pass5';
-import Writer from './writer';
+import * as Writer from './writer';
 
 const privateProps = new WeakMap();
 
@@ -120,10 +120,22 @@ export class Compiler {
 	 */
 	writeBytecode(logicStream, dialogueStream, sourceMapStream, debugStream) {
 		validateWriteStreams(logicStream, dialogueStream, sourceMapStream, debugStream);
-		return Writer.call(
+		return Writer.Stream.call(
 			privateProps.get(this).state, 
 			logicStream, dialogueStream, sourceMapStream, debugStream,
 		);
+	}
+
+	/**
+	 * Write the bytecode as buffers
+	 * @param {boolean} includeSourceMap - if the buffer object includes a sourcemap
+	 * @param {boolean} includeDebug - if the buffer object includes a debug text file
+	 * @returns {Promise} - when this is completed. 
+	 * The promise's resolve will have an argument that is a BufferObj containing 
+	 * the compiled bytecode
+	 */
+	writeBuffers(includeSourceMap, includeDebug) {
+		return Writer.Buffers.call(privateProps.get(this).state, includeSourceMap, includeDebug);
 	}
 
 	/** Reset the state of this Compiler
@@ -132,5 +144,34 @@ export class Compiler {
 		resetState(privateProps.get(this))
 	}
 }
+
+/**
+ * Buffer return object
+ * @class BufferObj
+ */
+
+/** The Logic buffer
+ * @instance
+ * @name BufferObj.logic
+ * @type {Buffer}
+ * @memberof BufferObj */
+
+/** The Dialogue buffer
+ * @instance
+ * @name BufferObj.dialogue
+ * @type {Buffer}
+ * @memberof BufferObj */
+
+/** The SourceMap json. Only valid if includeSourceMap is true
+ * @instance
+ * @name BufferObj.sourceMap
+ * @type {Object}
+ * @memberof BufferObj */
+
+/** The Debug text files. Only valid if includeDebug is true
+ * @instance
+ * @name BufferObj.debug
+ * @type {string[]}
+ * @memberof BufferObj */
 
 export {default as Commands} from './commands';
