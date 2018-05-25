@@ -111,7 +111,7 @@ function addDebugInfo(command, buffer, strings, localOffset, length) {
         argMsg += ", ";
       }
       argMsg = argMsg.slice(0, argMsg.length - 2);
-      message = `Run the function at ${command.arg0} ("${this.functions[command.arg0]}") with the ${command.arg1} stack arguments: ${argMsg}${message}`;
+      message = `Run the function at ${command.arg0} ("${this.state.functions[command.arg0]}") with the ${command.arg1} stack arguments: ${argMsg}${message}`;
       break;
     case Commands.Names.PushOption:
       message = `Push another option onto the stack, skip to offset ${command.address} (index: "${command.index}")`;
