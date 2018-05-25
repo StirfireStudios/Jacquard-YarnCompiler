@@ -8,7 +8,7 @@ export function length(buffer) {
 	} else if (typeof(buffer) == 'object') {
 		let length = 0;
 		buffer.forEach(function(item) {
-			length += Length(item);
+			length += length(item);
 		});
 		return length;
 	} else {

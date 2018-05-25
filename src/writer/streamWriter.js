@@ -12,8 +12,7 @@ export default function write(stream, buffer) {
 	return new Promise((resolve, reject) => {
 		if (Array.isArray(stream)) {
 			stream.push(Buffer.from(buffer));
-			// avoid zalgo
-			setTimeout(() => { resolve(length); }, 0);
+			resolve(length);
 		} else {
 			let ok = true;
 			ok = stream.write(buffer);
