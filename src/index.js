@@ -1,5 +1,7 @@
 'use strict';
 
+import "regenerator-runtime/runtime";
+
 import Commands from './commands';
 import CompilerState from './compilerState';
 import Pass1 from './pass1';
