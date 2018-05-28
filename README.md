@@ -123,5 +123,6 @@ Currenlty we're using `node v8.9.4` and `yarn v1.5.1`.
 Using your command line, navigate to the directory you've cloned this repo into.
 
   1. Execute a `yarn install`. This will download all the necessary libraries you need.
+  2. You can then do a compile via a `yarn compile` specifying the source yarn files (or a directory containing multiple files) and the destination directory for the compiled bytecode and other files
 
 If you wish to rebuild the documentation, you'll need to have [documentation.js](http://documentation.js.org/) installed, which you can do via `npm install -g documentation` - then you can run `yarn serveDoc` to serve the docs locally or `yarn buildDoc` to build the docs directory
