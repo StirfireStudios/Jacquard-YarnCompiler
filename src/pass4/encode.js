@@ -26,7 +26,7 @@ export function FunctionCall(command) {
 	const opCode = Buffer.from([Commands.ByName[command.type]]);
 	const funcIndex = BufferUtils.varInt(command.arg0);
 	const bytes = [command.arg1];
-	for(let i = 1; i <= command.arg1; i++) {
+	for(let i = 2; i < command.arg1 + 2; i++) {
 		bytes.push(command[`arg${i}`]);
 	}
 	const buffer = Buffer.concat([opCode, funcIndex, Buffer.from(bytes)]);
