@@ -25,7 +25,7 @@ function execAndClean(list, expression) {
 	list.push(command);
 
 	for(let i = 0; i < expression.args.length; i++) {
-		command[`arg${i + 1}`] = i;
+		command[`arg${i + 2}`] = i;
 	}
 
 	clean(list, expression, 1, expression.args.length);

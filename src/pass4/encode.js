@@ -24,11 +24,12 @@ export function DialogSegment() {
 
 export function FunctionCall(command) {
 	const opCode = Buffer.from([Commands.ByName[command.type]]);
-	const bytes = [command.arg0];
-	for(let i = 1; i <= command.arg0; i++) {
+	const funcIndex = BufferUtils.varInt(command.arg0);
+	const bytes = [command.arg1];
+	for(let i = 1; i <= command.arg1; i++) {
 		bytes.push(command[`arg${i}`]);
 	}
-	const buffer = Buffer.concat([opCode, Buffer.from(bytes)]);
+	const buffer = Buffer.concat([opCode, funcIndex, Buffer.from(bytes)]);
 	buffer.info = {};
 	return buffer;
 }
