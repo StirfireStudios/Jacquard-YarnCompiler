@@ -79,15 +79,15 @@ export default function handle(expression) {
 			break;
 		// special cases
 		case Expression.GreaterThanOrEqualOperator:
-			leftRightAndClean(list, expression, Commands.Names.GreaterThan, 0, false);
-			leftRightAndClean(list, expression, Commands.Names.Equal, 1, false);
-			leftRightAndClean(list, expression, Commands.Names.Or, 0, false);
+			leftRightAndClean(list, expression, Commands.Names.GreaterThan, 0, true);
+			leftRightAndClean(list, expression, Commands.Names.Equal, 1, true);
+			leftRightAndClean(list, expression, Commands.Names.Or, 0, true);
 			clean(list, expression, 1, 4);
 			break;
 		case Expression.LessThanOrEqualOperator: 
-			leftRightAndClean(list, expression, Commands.Names.LessThan, 0, false);
-			leftRightAndClean(list, expression, Commands.Names.Equal, 1, false);
-			leftRightAndClean(list, expression, Commands.Names.Or, 0, false);
+			leftRightAndClean(list, expression, Commands.Names.LessThan, 0, true);
+			leftRightAndClean(list, expression, Commands.Names.Equal, 1, true);
+			leftRightAndClean(list, expression, Commands.Names.Or, 0, true);
 			clean(list, expression, 1, 4);
 			break;
 		case Expression.NotEqualityOperator:
