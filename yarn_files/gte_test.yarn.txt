@@ -1,0 +1,24 @@
+title: Start
+---
+Here we set a variable
+<<$failson += 0>>
+[[bugged_node]]
+===
+title: bugged_node
+---
+<<$failson += 1>>
+<<if $failson >= 2>>
+-> If you're seeing this on the first run through. badness.
+  [[bugged_node]]
+<<elsif $failson <= 2>>
+-> You should see this one and then success
+  [[bugged_node]]
+<<else>>
+-> Success
+  [[success]]
+<<endif>>
+===
+title: success
+---
+Success!
+===
