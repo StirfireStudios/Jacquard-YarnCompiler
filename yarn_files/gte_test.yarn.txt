@@ -1,0 +1,21 @@
+title: Start
+---
+Here we set a variable
+<<$failson += 0>>
+[[bugged_node]]
+===
+title: bugged_node
+---
+<<$failson += 1>>
+<<if $failson >= 2>>
+-> Fail Choice
+  [[bugged_node]]
+<<else>>
+-> Success
+  [[success]]
+<<endif>>
+===
+title: success
+---
+Success!
+===
