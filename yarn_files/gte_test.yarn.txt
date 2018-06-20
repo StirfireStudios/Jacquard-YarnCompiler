@@ -6,7 +6,7 @@ position:
 ---
 
 Here we set a variable
-<<$failson += 1>>
+<<$failson += 0>>
 [[bugged_node]]
 
 ===
