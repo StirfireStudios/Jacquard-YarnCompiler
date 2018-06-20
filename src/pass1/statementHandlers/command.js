@@ -1,7 +1,6 @@
 'use strict';
 
 import * as Commands from '../../commands';
-import { InDialogBlock } from '../dialogSegments';
 import handleExpression from '../expressionHandler/index';
 
 export default function handler(statement) {

@@ -4,12 +4,9 @@ import { Expression } from 'jacquard-yarnparser';
 
 import * as Commands from '../../commands';
 import ExpressionHandler from '../expressionHandler';
-import { InDialogBlock } from '../dialogSegments';
 
 export default function handle(statement) {
-	let list = this.logicCommands;
-	if (InDialogBlock(this)) list = this.dialogSegments.current.commands;
-
+	const list = this.currentCommandList;
 	const args = statement.arguments;
 
 	args.forEach(arg => { ExpressionHandler.call(this, arg); });

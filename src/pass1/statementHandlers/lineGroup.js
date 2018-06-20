@@ -4,13 +4,12 @@ import { Statement } from 'jacquard-yarnparser';
 
 import * as Commands from '../../commands';
 import CommandHandler from './command';
-import * as DialogSegments from '../dialogSegments'
 import ExpressionHandler from '../expressionHandler';
 
 function handleSubStatement(statement) {
 	switch(statement.constructor) {
 		case Statement.Text:
-			DialogSegments.AddToCurrent(this, {
+			this.currentCommandList.push({
 				type: Commands.Names.StaticString,
 				string: statement.text,
 				location: statement.location,
@@ -33,11 +32,11 @@ export default function handler(statement) {
 	subStatements.forEach((subStatement) => {
 		handleSubStatement.call(this, subStatement);
 	});
-	DialogSegments.AddToCurrent(this, {
+	this.currentCommandList.push({
 		type: Commands.Names.ShowText,
 		location: statement.location,
 	});
-	DialogSegments.AddToCurrent(this, {
+	this.currentCommandList.push({
 		type: Commands.Names.ClearArguments,
 		arg0: 0,
 		arg1: 255,
