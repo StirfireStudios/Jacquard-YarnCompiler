@@ -11,23 +11,23 @@ export default function handler(optionStatement) {
 
 	const newBlock = { commands: [] };
 
-	commands.push({
+	newBlock.commands.push({
 		type: Commands.Names.StaticString,
 		string: optionStatement.text,
 		location: optionStatement.location,
 	});
-	commands.push({
+	newBlock.commands.push({
 		type: Commands.Names.ShowText,
 		location: optionStatement.location,
 	});
-	commands.push({
+	newBlock.commands.push({
 		type: Commands.Names.ClearArguments,
 		arg0: 0,
 		arg1: 255,
 		location: optionStatement.location,
 	});
 
-	state.logicCommands.push({
+	this.logicCommands.push({
     type: Commands.Names.ShowDialogBlock,
     dialogBlock: newBlock,
     characterRef: -1,
