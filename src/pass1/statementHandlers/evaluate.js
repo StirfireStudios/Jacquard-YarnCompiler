@@ -9,8 +9,7 @@ import { InDialogBlock } from '../dialogSegments';
 export default function handle(statement) {
 	ExpressionHandler.call(this, statement.expression);
 
-	let list = this.logicCommands;
-	if (InDialogBlock(this)) list = this.dialogSegments.current.commands;
+	let list = this.currentCommandList;
 	if (!statement.returnOutput) {
 		list.push({
 			type: Commands.Names.ClearArguments,

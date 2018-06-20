@@ -1,24 +1,39 @@
 title: Start
+tags: 
+section: 
+colorID: 
+position: 
 ---
+
 Here we set a variable
 <<$failson += 0>>
 [[bugged_node]]
+
 ===
 title: bugged_node
+tags: 
+section: 
+colorID: 
+position: 
 ---
+
 <<$failson += 1>>
 <<if $failson >= 2>>
--> If you're seeing this on the first run through. badness.
+-> If you're seeing this on the first run through. badness. #dialogRef: 0000
   [[bugged_node]]
 <<elsif $failson <= 2>>
--> You should see this one and then success
+-> If you click this, you should see the bad message
   [[bugged_node]]
-<<else>>
--> Success
-  [[success]]
 <<endif>>
+
 ===
 title: success
+tags: 
+section: 
+colorID: 
+position: 
 ---
+
 Success!
+
 ===

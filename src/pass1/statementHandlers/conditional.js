@@ -30,8 +30,6 @@ export default function handler(statement) {
 			this.processStatement(statement);
 		});
 
-		DialogSegments.FinishCurrent(this);
-
 		const endJump = {
 			type: Commands.Names.Jump,
 			index: -1,

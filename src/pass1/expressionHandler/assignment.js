@@ -39,8 +39,7 @@ function execAndAssign(list, expression, type) {
 }
 
 export default function handle(expression) {
-	let list = this.logicCommands;
-	if (InDialogBlock(this)) list = this.dialogSegments.current.commands;
+	const list = this.logicCommands;
 
 	// index 0
 	handle.handleExpression.call(this, expression.expression);

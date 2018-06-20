@@ -5,8 +5,7 @@ import { InDialogBlock } from '../dialogSegments';
 import handleExpression from '../expressionHandler/index';
 
 export default function handler(statement) {
-	let list = this.logicCommands;
-	if (InDialogBlock(this)) list = this.dialogSegments.current.commands;
+	let list = this.currentCommandList;
 
 	statement.arguments.forEach(argument => {
 		handleExpression.call(this, argument, true);

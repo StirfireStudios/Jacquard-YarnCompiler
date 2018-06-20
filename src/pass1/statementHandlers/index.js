@@ -1,5 +1,6 @@
 export {default as Conditional} from './conditional';
 export {default as Command} from './command';
+export {default as DialogueSegment} from './dialogueSegment';
 export {default as Evaluate} from './evaluate';
 export {default as Function} from './function';
 export {default as LineGroup} from './lineGroup';

@@ -4,16 +4,17 @@ import * as DialogSegments from '../dialogSegments'
 import * as Commands from '../../commands';
 
 export default function handler(statement) {
-	DialogSegments.AddToCurrent(this, {
+	const list = this.currentCommandList;
+	list.push({
 		type: Commands.Names.StaticString,
 		string: statement.text,
 		location: statement.location,
 	});
-	DialogSegments.AddToCurrent(this, {
+	list.push({
 		type: Commands.Names.ShowText,
 		location: statement.location,
 	});
-	DialogSegments.AddToCurrent(this, {
+	list.push({
 		type: Commands.Names.ClearArguments,
 		arg0: 0,
 		arg1: 255,
