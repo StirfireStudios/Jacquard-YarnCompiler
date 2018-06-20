@@ -14,8 +14,7 @@ function handleValueLoad(type, expression) {
 }
 
 export default function handle(expression) {
-	let instructionList = this.logicCommands;
-	if (InDialogBlock(this)) instructionList = this.dialogSegments.current.commands;
+	const instructionList = this.currentCommandList;
 
 	switch(expression.constructor) {
 		// These just load a value onto the stack.
