@@ -2,25 +2,15 @@
 
 import * as Commands from '../commands';
 
-function uniqueDialogName(state) {
-  let exists = true;
-  let name = null; 
-  while(exists) {
-    state.nameIndex += 1;
-    name = state.nameIndex.toString(16);
-    exists = state.byName[name] != null;
-  }
-
-  return name;
-}
-
 export function SetDialogName(state, name) {
+  return;
   state = state.dialogSegments;
   state.current.name = name;
   state.current.nameAssigned = true;
 }
 
 export function AddToCurrent(state, statement) {
+  return;
   state = state.dialogSegments;
 
 	if (state.current == null) {
@@ -35,10 +25,12 @@ export function AddToCurrent(state, statement) {
 }
 
 export function InDialogBlock(state) {
+  return false;
   return state.dialogSegments.current != null;
 }
 
 export function FinishCurrent(state) {
+  return;
   const dlgState = state.dialogSegments;
   if (dlgState.current == null) return;
 
@@ -58,12 +50,4 @@ export function FinishCurrent(state) {
   });
 
   dlgState.current = null;
-}
-
-export function Setup(state) {
-  state.dialogSegments = {
-    current: null,
-    byName: {},
-    nameIndex: -1,
-  }
 }

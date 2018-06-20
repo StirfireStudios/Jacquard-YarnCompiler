@@ -3,7 +3,6 @@
 import { Statement } from 'jacquard-yarnparser';
 
 import * as Commands from '../../commands';
-import * as DialogSegments from '../dialogSegments'
 import ShortcutHandler from './shortcut';
 import ConditionalHandler from './conditional';
 

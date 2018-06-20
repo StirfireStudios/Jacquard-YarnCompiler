@@ -2,31 +2,13 @@
 
 import { Statement } from 'jacquard-yarnparser';
 
-import * as DialogSegments from './dialogSegments';
-
-import * as Commands from '../commands';
-import { SetupPrivates } from '../classUtils';
-
 import * as Handlers from './statementHandlers';
 
-const privateProps = new WeakMap();
-
-const defaults = {
-}
-
-function handleFinishingDialogSegment(statement) {
-	const textStatement = statement instanceof Statement.Text;
-	const lineGroupStatement = statement instanceof Statement.LineGroup;
-
-	if (!(textStatement || lineGroupStatement)) {
-		DialogSegments.FinishCurrent(this);
-	}	
-}
-
 function processStatement(statement) {
-	handleFinishingDialogSegment.call(this, statement);
-
 	switch(statement.constructor) {
+		case Statement.DialogueSegment:
+			Handlers.DialogueSegment.call(this, statement);
+			break;
 		case Statement.Command:
 			Handlers.Command.call(this, statement);
 			break;
@@ -69,11 +51,16 @@ function processStatement(statement) {
 
 
 function setupState() {
-	return {
+	const state = {
 		currentDialog: null,
 		logicCommands: [],
 		dialogSegments: {},
-	};
+		unidentifiedDialogSegments: [],
+	}
+
+	state.currentCommandList = state.logicCommands;
+
+	return state;
 }
 
 /**
@@ -87,13 +74,10 @@ export default function Pass1(node) {
 	const state = setupState();
 	state.name = node.name;
 	state.processStatement = processStatement.bind(state);
-	DialogSegments.Setup(state);
 	node.statements.forEach(statement => { 
 		processStatement.call(state, statement, node.statements);
 	});
-	DialogSegments.FinishCurrent(state);
 
 	delete(state.processStatement);
-	delete(state.currentDialog);
 	return state;
 }
