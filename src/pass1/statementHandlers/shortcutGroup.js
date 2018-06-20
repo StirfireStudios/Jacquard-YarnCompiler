@@ -8,10 +8,12 @@ import ShortcutHandler from './shortcut';
 import ConditionalHandler from './conditional';
 
 export default function handler(statement) {
+	const jumpReturns = [];
 	statement.statements.forEach(statement => {
 		switch(statement.constructor) {
 			case Statement.Shortcut:
-  			ShortcutHandler.call(this, statement);
+				const jumpReturn = ShortcutHandler.call(this, statement);
+				if (jumpReturn != null) jumpReturns.push(jumpReturn);
 				break;
 			case Statement.Conditional:
 				ConditionalHandler.call(this, statement);
@@ -25,5 +27,9 @@ export default function handler(statement) {
 	this.logicCommands.push({
 		type: Commands.Names.RunOptions,
 		location: statement.location,
+	});
+
+	jumpReturns.forEach((jumpReturn) => { 
+		jumpReturn.index = this.logicCommands.length;
 	});
 }
