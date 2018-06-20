@@ -3,7 +3,6 @@
 import { Statement } from 'jacquard-yarnparser';
 
 import * as Commands from '../../commands';
-import * as DialogSegments from '../dialogSegments'
 import handleExpression from '../expressionHandler/index';
 
 function insertTestIfPresent(clause) {

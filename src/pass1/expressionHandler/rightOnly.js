@@ -3,7 +3,6 @@
 import { Expression } from 'jacquard-yarnparser';
 
 import * as Commands from '../../commands';
-import { InDialogBlock } from '../dialogSegments';
 
 function clean(list, expression, argIndex, count) {
 	list.push({
@@ -34,8 +33,7 @@ function leftRightAndClean(list, expression, type, argIndex, leaveArgs) {
 }
 
 export default function handle(expression) {
-	let list = this.logicCommands;
-	if (InDialogBlock(this)) list = this.dialogSegments.current.commands;
+	const list = this.currentCommandList;
 
 	if (expression instanceof Expression.NegativeOperator) {
 		list.push({

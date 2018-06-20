@@ -3,7 +3,6 @@
 import { Expression } from 'jacquard-yarnparser';
 
 import * as Commands from '../../commands';
-import { InDialogBlock } from '../dialogSegments';
 
 function clean(list, expression, argIndex, count) {
 	list.push({

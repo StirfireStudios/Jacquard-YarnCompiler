@@ -1,32 +1,38 @@
 'use strict';
 
 import * as Commands from '../../commands';
-import * as DialogSegments from '../dialogSegments'
 
 export default function handler(optionStatement) {
 	const optionCommand = {
 		type: Commands.Names.PushOption,
 		location: optionStatement.location,
 	}
-
 	this.logicCommands.push(optionCommand);
 
-	DialogSegments.AddToCurrent(this, {
+	const newBlock = { commands: [] };
+
+	commands.push({
 		type: Commands.Names.StaticString,
 		string: optionStatement.text,
 		location: optionStatement.location,
 	});
-	DialogSegments.AddToCurrent(this, {
+	commands.push({
 		type: Commands.Names.ShowText,
 		location: optionStatement.location,
 	});
-	DialogSegments.AddToCurrent(this, {
+	commands.push({
 		type: Commands.Names.ClearArguments,
 		arg0: 0,
 		arg1: 255,
 		location: optionStatement.location,
 	});
-	DialogSegments.FinishCurrent(this);
+
+	state.logicCommands.push({
+    type: Commands.Names.ShowDialogBlock,
+    dialogBlock: newBlock,
+    characterRef: -1,
+  });
+
 	this.logicCommands.push({
 		type: Commands.Names.Jump,
 		nodeName: optionStatement.destination,
