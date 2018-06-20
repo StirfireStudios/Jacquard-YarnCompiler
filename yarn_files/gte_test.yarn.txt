@@ -19,7 +19,7 @@ position:
 
 <<$failson += 1>>
 <<if $failson >= 2>>
--> If you're seeing this on the first run through. badness.
+-> If you're seeing this on the first run through. badness. #dialogRef: 0000
   [[bugged_node]]
 <<elsif $failson <= 2>>
 -> If you click this, you should see the bad message

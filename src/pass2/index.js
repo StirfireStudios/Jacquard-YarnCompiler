@@ -1,10 +1,9 @@
 'use strict';
 
 import * as Commands from '../commands';
-import HandleDialogBlock from './dialogblock';
+import FinishDialogSegments from './finishDialogSegments';
 import HandleIndexJump from './indexJump';
 import HandleNodeJump from './nodeJump';
-import { SetupPrivates } from '../classUtils';
 
 function insertStartNode() {
 	this.logicCommands.push({
@@ -19,7 +18,7 @@ function insertEndNode() {
 	});
 }
 
-function handleCommand(command, dialogSegments) {
+function handleCommand(command) {
 	const copiedCommand = Object.assign({}, command);
 	switch(copiedCommand.type) {
 		case Commands.Names.PushOption:
@@ -29,7 +28,6 @@ function handleCommand(command, dialogSegments) {
 			HandleIndexJump.call(this, copiedCommand);
 			break;
 		case Commands.Names.ShowDialogBlock:
-			HandleDialogBlock.call(this, copiedCommand, dialogSegments);
 			this.showDialogCommands.push(copiedCommand);
 	}
 	this.logicCommands.push(copiedCommand);
@@ -62,7 +60,7 @@ export function add(state, pass1Output) {
 	// we do this here, after we've inserted anything required for node start
 	state.currentNode.logicOffset = state.logicCommands.length; 
 	pass1Output.logicCommands.forEach(command => {
-		handleCommand.call(state, command, pass1Output.dialogSegments);
+		handleCommand.call(state, command);
 	});
 
 	insertEndNode.call(state);
@@ -72,15 +70,8 @@ export function finish(state) {
 	state.logicCommands.forEach(command => {
 		if (command.type == Commands.Names.Jump) HandleNodeJump.call(state, command);
 	});
-	 
-	const renamedDialogSegments = {};
-	state.showDialogCommands.forEach(command => {
-		const newName = command.arg0.padStart(state.dialogNameMaxLength, "0");
-		renamedDialogSegments[newName] = state.dialogSegments[command.arg0];
-		command.arg0 = newName;
-	});
 
-	state.dialogSegments = renamedDialogSegments;
+	FinishDialogSegments(state);
 
 	delete(state.dialogNameIndex);
 	delete(state.dialogNameMaxLength);

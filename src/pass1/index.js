@@ -42,7 +42,8 @@ function processStatement(statement) {
 		case Statement.Text:
 			Handlers.Text.call(this, statement);
 			break;
-		case Statement.Blank:
+		case Statement.Blank: 
+		case Statement.Hashtag: // currently we don't pass hashtags through to the runtime
 			break;
 		default:
 			console.error("Unknown")
@@ -54,8 +55,6 @@ function setupState() {
 	const state = {
 		currentDialog: null,
 		logicCommands: [],
-		dialogSegments: {},
-		unidentifiedDialogSegments: [],
 	}
 
 	state.currentCommandList = state.logicCommands;

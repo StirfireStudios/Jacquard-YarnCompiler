@@ -3,24 +3,21 @@
 import * as Commands from '../../commands';
 
 function setupSegment(state, identifier) {
-  const newSegment = { commands: [] };
+  const newBlock = { commands: [] };
   if (identifier != null) {
-    state.dialogSegments[identifier] = newSegment;
-    newSegment.identifier = identifier;
-  } else {
-    state.unidentifiedDialogSegments.push(newSegment);
+    newBlock.identifier = parseInt(identifier, 16);
   }
   state.logicCommands.push({
     type: Commands.Names.ShowDialogBlock,
-    dialogueSegment: newSegment,
+    dialogBlock: newBlock,
     characterRef: -1,
   });
-  return newSegment;
+  return newBlock;
 }
 
 export default function handler(statement) {
-  const segment = setupSegment(this, statement.identifier);
-  this.currentCommandList = segment.commands;
+  const block = setupSegment(this, statement.identifier);
+  this.currentCommandList = block.commands;
 
   statement.statements.forEach(statement => {
     this.processStatement(statement);
