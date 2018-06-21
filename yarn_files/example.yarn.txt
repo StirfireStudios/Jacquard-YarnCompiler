@@ -77,6 +77,8 @@ colorID: 0
 position: 1429,600
 ---
 
+<<TestFunctionDoNotExecute>>
+
 [[Node5]]
 
 ===
