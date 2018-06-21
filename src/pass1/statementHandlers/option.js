@@ -26,6 +26,7 @@ export default function handler(optionStatement) {
 		arg1: 255,
 		location: optionStatement.location,
 	});
+  newBlock.commands.push({ type: Commands.Names.DialogBlockEnd });
 
 	this.logicCommands.push({
     type: Commands.Names.ShowDialogBlock,
