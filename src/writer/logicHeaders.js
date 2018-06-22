@@ -13,7 +13,7 @@ export default async function write(stream) {
 
 	DebugUtils.AddHeader(this.debugData, "Logic File Debug Info");
 
-	//Type - Jaquard Logic
+	//Type - Jacquard Logic
 	length = await Write(stream, "JQRDL");
 	DebugUtils.Add(this.debugData, this.offset, length, "File Type", "JQRDL")
 	this.offset += length;
