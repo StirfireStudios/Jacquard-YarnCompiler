@@ -31,7 +31,7 @@ export default function handler(optionStatement) {
 	this.logicCommands.push({
     type: Commands.Names.ShowDialogBlock,
     dialogBlock: newBlock,
-    characterRef: -1,
+    characterRef: null,
   });
 
 	this.logicCommands.push({

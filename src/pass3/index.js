@@ -28,10 +28,10 @@ function handleLogicCommand(command) {
 			delete(command.name);
 			break;
 		case Commands.Names.ShowDialogBlock:
-			if (command.characterRef === -1) {
+			if (command.characterRef === null) {
 				command.arg1 = -1;
 			} else {
-				command.arg1 = insertOrFindInTable(this.characters, command.name);
+				command.arg1 = insertOrFindInTable(this.characters, command.characterRef);
 			}
 			delete(command.characterRef);
 	}
@@ -62,4 +62,6 @@ export default function pass3(state) {
 			handleDialogCommand.call(state, command);
 		});
 	});
+
+	state.dialogCharacters = state.characters;
 }

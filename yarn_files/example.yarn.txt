@@ -5,9 +5,9 @@ colorID: 0
 position: 545,274
 ---
 
-This is the starting node.
+Start character: This is the starting node, spoken by "Start character"
 
-Calling visited("Start") should return True now, since we have visited this node.
+Second Char: Calling visited("Start") should return True now, since we have visited this node.
 
 <<if visited("Start")>>
     Called visited("Start") and confirmed that we've visited Start!

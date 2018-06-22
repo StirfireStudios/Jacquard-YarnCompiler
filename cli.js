@@ -82,7 +82,8 @@ if (!config.ready) {
 
 parser = new YarnParser({
   preprocessOnly: config.preprocessOutputFiles != null,
-  preprocessDebug: config.preprocessDebug
+  preprocessDebug: config.preprocessDebug,
+  characterSupport: true,
 });
 
 for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {
@@ -103,6 +104,7 @@ for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {
 		return;
   }
 }
+
 
 compiler = new YarnCompiler({sourceMap: true, debug: true});
 compiler.process(parser);

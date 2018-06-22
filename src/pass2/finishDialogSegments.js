@@ -2,7 +2,7 @@
 
 import * as Commands from '../commands';
 
-function gatherIDs(commands, blockCommands, usedIDs, needsIDs) {
+function scanForBlocks(commands, blockCommands, usedIDs, needsIDs) {
 	commands.forEach(command => {
 		if (command.type != Commands.Names.ShowDialogBlock) return;
 		blockCommands.push(command);
@@ -45,7 +45,7 @@ export default function finishDialogSegments(state) {
 	const usedIDs = [];
 	const needsIDs = [];
 
-	gatherIDs(state.logicCommands, showBlockCommands, usedIDs, needsIDs);
+	scanForBlocks(state.logicCommands, showBlockCommands, usedIDs, needsIDs);
 	allocateIDs(usedIDs, needsIDs);
 
 	const maxID = usedIDs.reduce((maxID, currentID) => { return Math.max(maxID, currentID); })
