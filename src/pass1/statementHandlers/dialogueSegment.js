@@ -5,12 +5,13 @@ import * as Commands from '../../commands';
 function setupSegment(state, identifier, characterName) {
   const newBlock = { commands: [] };
   if (identifier != null) newBlock.identifier = parseInt(identifier, 16);
-  if (characterName != null) newBlock.characterName = characterName;
-  state.logicCommands.push({
+  const command = {
     type: Commands.Names.ShowDialogBlock,
     dialogBlock: newBlock,
-    characterRef: -1,
-  });
+    characterRef: null,
+  }
+  if (characterName != null) command.characterRef = characterName;
+  state.logicCommands.push(command);
   return newBlock;
 }
 
