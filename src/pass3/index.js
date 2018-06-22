@@ -62,4 +62,6 @@ export default function pass3(state) {
 			handleDialogCommand.call(state, command);
 		});
 	});
+
+	state.dialogCharacters = state.characters;
 }
