@@ -21,12 +21,12 @@ export default function handle(statement) {
 	list.push(command);
 
 	for(let i = 0; i < args.length; i++) {
-		command[`arg${i + 1}`] = i;
+		command[`arg${i + 2}`] = i;
 	}
 
 	list.push({
 		type: Commands.Names.ClearArguments,
-		arg0: 0,
+		arg0: 1,
 		arg1: args.length,
 		location: statement.location,
 	});
