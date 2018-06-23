@@ -26,7 +26,7 @@ export default function handle(statement) {
 
 	list.push({
 		type: Commands.Names.ClearArguments,
-		arg0: 1,
+		arg0: 0,
 		arg1: args.length,
 		location: statement.location,
 	});
