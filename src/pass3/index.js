@@ -23,7 +23,7 @@ function handleLogicCommand(command) {
 			delete(command.string);
 			break;
 		case Commands.Names.FunctionReturn:
-		case Commands.Names.FunctionReturn:
+		case Commands.Names.FunctionNoReturn:
 			command.arg0 = insertOrFindInTable(this.functions, command.name);
 			delete(command.name);
 			break;
@@ -44,7 +44,7 @@ function handleDialogCommand(command) {
 			delete(command.string);
 			break;		
 		case Commands.Names.FunctionReturn:
-		case Commands.Names.FunctionReturn:
+		case Commands.Names.FunctionNoReturn:
 			command.arg0 = insertOrFindInTable(this.variables, command.string);
 			delete(command.name);
 			break;

@@ -1,4 +1,4 @@
-title: Start 
+title: Start
 tags: Test1, Test2, Test3
 section:
 colorID: 0
@@ -15,6 +15,8 @@ Second Char: Calling visited("Start") should return True now, since we have visi
 
 <<set $variable1 to true>>
 
+<< func funkyFunc("FunkyArg") >>
+
 A variable named "variable1" is now set to True, and the debug log should reflect this.
 
 We are auto-advancing to the next node, "Node1".
@@ -24,7 +26,7 @@ We are auto-advancing to the next node, "Node1".
 ===
 title: Node1
 tags: Test2, Test3, Test4
-section: 
+section:
 colorID: 0
 position: 856,356
 ---
@@ -58,8 +60,8 @@ The next node will use standard choice syntax.
 
 ===
 title: Node2
-tags: 
-section: 
+tags:
+section:
 colorID: 0
 position: 1170,404
 ---
@@ -71,8 +73,8 @@ Standard choice syntax test.
 
 ===
 title: Node3
-tags: 
-section: 
+tags:
+section:
 colorID: 0
 position: 1429,600
 ---
@@ -83,8 +85,8 @@ position: 1429,600
 
 ===
 title: Node4
-tags: 
-section: 
+tags:
+section:
 colorID: 0
 position: 1818,441
 ---
@@ -93,8 +95,8 @@ position: 1818,441
 
 ===
 title: Node5
-tags: 
-section: 
+tags:
+section:
 colorID: 0
 position: 1531,102
 ---
