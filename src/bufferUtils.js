@@ -42,7 +42,11 @@ export function varInt(number) {
 		length--;
 	}
 
-	const buffer = Buffer.alloc(length + 1);
+	let padding = 0;
+	if (length > 2 && length < 4) padding = 4 - length;
+	if (length > 4 && length < 8) padding = 8 - length;
+
+	const buffer = Buffer.alloc(1 + length + padding);
 	if (negative) {
 		buffer[0] = 128 | length;
 	} else {
@@ -51,6 +55,10 @@ export function varInt(number) {
 	for(let i = 0; i < length; i++) {
 		buffer[i+1] = byteArray[i];
 	}
+	for(let i = 0; i < padding; i++) {
+		buffer[i+1+length] = 0;
+	}
+
 	return buffer;
 }
 
