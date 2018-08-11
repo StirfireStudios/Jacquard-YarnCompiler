@@ -9,6 +9,10 @@ position: 545,274
   This should be entered
 << endif >>
 
+<< if $variable == true && $variable2 == false >>
+  This should not be entered
+<< endif >>
+
 Start character: This is the starting node, spoken by "Start character"
 
 Second Char: Calling visited("Start") should return True now, since we have visited this node.
