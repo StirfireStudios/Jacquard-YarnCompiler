@@ -903,8 +903,8 @@ isobject@^2.0.0:
     isarray "1.0.0"
 
 jacquard-yarnparser@0.6.x:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/jacquard-yarnparser/-/jacquard-yarnparser-0.6.0.tgz#97ca7a096b380e390479aef17cb16a722ef4cb61"
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/jacquard-yarnparser/-/jacquard-yarnparser-0.6.1.tgz#a0d1be7b54a6e866c0fa523c3c8f307b37e8f447"
   dependencies:
     antlr4 "^4.7.1"
 

@@ -5,6 +5,14 @@ colorID: 0
 position: 545,274
 ---
 
+<< if !$variable >>
+  This should be entered
+<< endif >>
+
+<< if ($variable == true) && ($variable2 == false) >>
+  This should not be entered. At some point removing the brackets should work.
+<< endif >>
+
 Start character: This is the starting node, spoken by "Start character"
 
 Second Char: Calling visited("Start") should return True now, since we have visited this node.
