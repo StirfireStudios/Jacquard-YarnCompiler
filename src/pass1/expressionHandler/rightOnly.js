@@ -43,8 +43,15 @@ export default function handle(expression) {
 		});
 	}
 
-	// index 0
-	handle.handleExpression.call(this, expression.right, true);
+	if (expression.right != null) {
+		handle.handleExpression.call(this, expression.right, true);
+	} else if (expression.variables != null && expression.variables.length > 0) {
+		list.push({
+			type: Commands.Names.VariableLoad,
+			name: expression.variables[0],
+			location: expression.location,
+		});
+	}
 
 	switch(expression.constructor) {
 		case Expression.NotOperator:
