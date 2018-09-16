@@ -34,7 +34,7 @@ function execAndAssign(list, expression, type) {
 		location: expression.location,
 	});
 	assign(list, expression);
-	clean(list, expression, 1, 1);
+	clean(list, expression, 1, 2);
 }
 
 export default function handle(expression) {
