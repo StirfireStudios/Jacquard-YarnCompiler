@@ -5,6 +5,10 @@ colorID: 0
 position: 545,274
 ---
 
+<< set $testIncrement += 1 >>
+
+<< command Thingy Here >>
+
 << if !$variable >>
   This should be entered
 << endif >>
