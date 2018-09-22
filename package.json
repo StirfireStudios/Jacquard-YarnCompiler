@@ -1,6 +1,6 @@
 {
   "name": "jacquard-yarncompiler",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "a JS bytecode compiler for Yarn",
   "main": "dist/index.js",
   "repository": "https://github.com/StirfireStudios/Jacquard-YarnCompiler",
