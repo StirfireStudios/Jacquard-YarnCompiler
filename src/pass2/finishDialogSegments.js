@@ -48,8 +48,10 @@ export default function finishDialogSegments(state) {
 	scanForBlocks(state.logicCommands, showBlockCommands, usedIDs, needsIDs);
 	allocateIDs(usedIDs, needsIDs);
 
-	const maxID = usedIDs.reduce((maxID, currentID) => { return Math.max(maxID, currentID); })
-	const maxIDLength = getLength(maxID);
+	if (usedIDs.length > 0) {
+		const maxID = usedIDs.reduce((maxID, currentID) => { return Math.max(maxID, currentID); })
+		const maxIDLength = getLength(maxID);
 
-	state.dialogSegments = setIDs(showBlockCommands, maxIDLength);
+		state.dialogSegments = setIDs(showBlockCommands, maxIDLength);
+	}
 }
