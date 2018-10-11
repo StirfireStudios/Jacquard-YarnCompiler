@@ -1,6 +1,6 @@
 {
   "name": "jacquard-yarncompiler",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "description": "a JS bytecode compiler for Yarn",
   "main": "dist/index.js",
   "repository": "https://github.com/StirfireStudios/Jacquard-YarnCompiler",
@@ -17,7 +17,7 @@
     "regenerator-runtime": "^0.11.1"
   },
   "dependencies": {
-    "jacquard-yarnparser": "0.6.x"
+    "jacquard-yarnparser": "0.7.x"
   },
   "scripts": {
     "build": "babel src -d dist",
